@@ -6,8 +6,11 @@ import {
     ImageBackground,
     Button,
     TouchableOpacity,
-    Text
+    Text,
+    TouchableWithoutFeedback
 } from 'react-native';
+import { DrawerActions } from 'react-navigation'
+import { Header } from 'react-native-elements';
 import { ProgressSteps, ProgressStep } from 'react-native-progress-steps';
 import StepOne from '../components/WizardComps/Step1'
 import StepTwo from '../components/WizardComps/Step2'
@@ -23,13 +26,20 @@ export default class Movingfurniture extends React.Component {
     
     render(){
         return(
-            <View style={styles.container}>
+        <View style={{flex:1}}> 
+            <Header 
+            backgroundColor={"grey"}
+            leftComponent={{icon:'md-menu', type:'ionicon', color:"#FFF", size: 30, component: TouchableWithoutFeedback,onPress: ()=>{this.props.navigation.dispatch(DrawerActions.toggleDrawer())} }}
+            centerComponent={<Text style={styles.headerTitleStyle}>My Rides</Text>}
+            outerContainerStyles={styles.headerStyle}
+            innerContainerStyles={{marginLeft:10, marginRight: 10}}
+        />
             <ProgressSteps>
                 <ProgressStep label="Date & Time">
                    <StepOne/>
                 </ProgressStep>
                 <ProgressStep label="Location">
-                    <StepTwo/>
+                    <StepTwo navigation={this.props.navigation} />
                 </ProgressStep>
                 <ProgressStep label="Descrption">
                    <StepThree/>

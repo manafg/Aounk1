@@ -86,6 +86,12 @@ import SideMenu from '../components/SideMenu';
 
     //authentication stack for user before login
     export const AuthStack = createStackNavigator({
+        Movingfurniture:{
+            screen: Movingfurniture,
+            navigationOptions: {
+                header : null
+            }
+        },
         Map: {
             screen: MapScreen,
             navigationOptions:{
@@ -124,7 +130,7 @@ import SideMenu from '../components/SideMenu';
         }
            
     },{
-        initialRouteName: 'Login',
+        initialRouteName: 'Movingfurniture',
     });
 
     //drawer routes, you can add routes here for drawer or sidemenu

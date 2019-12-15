@@ -8,6 +8,7 @@ export default class SearchScreen extends Component {
         let from = this.props.navigation.getParam('from');
         let whereText = this.props.navigation.getParam('whereText');
         let dropText = this.props.navigation.getParam('dropText');
+        let pageName = this.props.navigation.getParam('pageName');
         this.setState({
             from: from,
             whereText: whereText,
@@ -16,6 +17,7 @@ export default class SearchScreen extends Component {
     }
 
     goMap(data,details,from) {
+        let pageName = this.props.navigation.getParam('pageName');
         if(from=="where") {
             let searchObj = {
                 searchData: data, 
@@ -29,7 +31,12 @@ export default class SearchScreen extends Component {
             oldData.wherelatitude = details.geometry.location.lat,
             oldData.wherelongitude = details.geometry.location.lng,
             oldData.whereText = details.formatted_address 
-            this.props.navigation.replace('Map',{ searchObj: searchObj,old:oldData});           
+            if(pageName){
+                this.props.navigation.replace('Movingfurniture',{ searchObj: searchObj,old:oldData}); 
+            } else {
+                this.props.navigation.replace('Map',{ searchObj: searchObj,old:oldData}); 
+
+            }       
         }
         else if(from=='drop'){
             let searchObj = {
@@ -44,7 +51,12 @@ export default class SearchScreen extends Component {
             oldData.droplatitude = details.geometry.location.lat,
             oldData.droplongitude = details.geometry.location.lng,
             oldData.droptext = details.formatted_address
-            this.props.navigation.replace('Map',{ searchObj: searchObj,old:oldData});
+            if(pageName){
+                this.props.navigation.replace('Movingfurniture',{ searchObj: searchObj,old:oldData}); 
+            } else {
+                this.props.navigation.replace('Map',{ searchObj: searchObj,old:oldData}); 
+
+            }    
         }
 
     }

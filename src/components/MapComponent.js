@@ -12,6 +12,7 @@ export default class MapComponent extends Component {
         
     render() {
     const { mapRegion, markerCord, mapStyle,nearby, onRegionChange, markerRef } = this.props;
+    let current = this.props.truckReqPayLoad ? this.props.truckReqPayLoad.current : null;
         return (
             <MapView
                 provider={PROVIDER_GOOGLE}
@@ -42,7 +43,7 @@ export default class MapComponent extends Component {
                 />
                 : null
                 }
-                {this.props.truckReqPayLoad.current &&
+                {current &&
                   <MapViewDirections
                             origin={{latitude: this.props.truckReqPayLoad.current.lat, longitude: this.props.truckReqPayLoad.current.lng}}
                             destination={{latitude: this.props.truckReqPayLoad.destination.lat, longitude: this.props.truckReqPayLoad.destination.lng}}
