@@ -15,6 +15,7 @@ import { ProgressSteps, ProgressStep } from 'react-native-progress-steps';
 import StepOne from '../components/WizardComps/Step1'
 import StepTwo from '../components/WizardComps/Step2'
 import StepThree from '../components/WizardComps/Step3'
+import StepFour from '../components/WizardComps/Step4'
 
     
 
@@ -44,8 +45,8 @@ export default class Movingfurniture extends React.Component {
                 <ProgressStep label="Descrption">
                    <StepThree/>
                 </ProgressStep>
-                <ProgressStep label="Confirem">
-                   <StepThree/>
+                <ProgressStep label="Gallery">
+                   <StepFour/>
                 </ProgressStep>
             </ProgressSteps>
         </View>

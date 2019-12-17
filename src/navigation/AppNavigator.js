@@ -8,7 +8,7 @@ const AppNavigator= createSwitchNavigator({
         Root: RootNavigator,
         },
         {
-            initialRouteName: 'Auth'
+            initialRouteName: 'AuthLoading'
         }
     );
     const AppContainer = createAppContainer(AppNavigator);

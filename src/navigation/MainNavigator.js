@@ -130,7 +130,7 @@ import SideMenu from '../components/SideMenu';
         }
            
     },{
-        initialRouteName: 'Movingfurniture',
+        initialRouteName: 'Login',
     });
 
     //drawer routes, you can add routes here for drawer or sidemenu
