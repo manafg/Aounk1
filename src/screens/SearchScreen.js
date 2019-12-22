@@ -34,8 +34,8 @@ export default class SearchScreen extends Component {
             if(pageName){
                 this.props.navigation.replace('Movingfurniture',{ searchObj: searchObj,old:oldData}); 
             } else {
-                this.props.navigation.replace('Map',{ searchObj: searchObj,old:oldData}); 
-
+                this.props.navigation.state.params.pres(searchObj, oldData);
+                this.props.navigation.goBack(); 
             }       
         }
         else if(from=='drop'){
@@ -54,8 +54,8 @@ export default class SearchScreen extends Component {
             if(pageName){
                 this.props.navigation.replace('Movingfurniture',{ searchObj: searchObj,old:oldData}); 
             } else {
-                this.props.navigation.replace('Map',{ searchObj: searchObj,old:oldData}); 
-
+                this.props.navigation.state.params.pres(searchObj, oldData);
+                this.props.navigation.goBack(); 
             }    
         }
 

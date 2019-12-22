@@ -12,6 +12,7 @@ import {
     Button
 } from 'react-native';
 import {
+    Declined,
     AcceptModal,
     CompletedTrip,
     StartedTrip,
@@ -41,7 +42,9 @@ export default class MapScreen extends React.Component {
     constructor(props) {
         super(props);
         this.socket = io(SOCKET_URL, {
-            path: '/socket.io'
+            path: '/socket.io',
+            pingTimeout: 6000000, 
+            pingInterval: 30000
         });
         this.state = {
             count: 0,
@@ -57,6 +60,7 @@ export default class MapScreen extends React.Component {
             fromActivity: false,
             messageShow:false,
             message:null,
+            Declined:false,
             region: {
                 latitude: 31.963158,
                 longitude: 35.930359,
@@ -95,6 +99,7 @@ export default class MapScreen extends React.Component {
         this._rate = this._rate.bind(this)
         this._writeMessage=this._writeMessage.bind(this);
         this._showMessage = this._showMessage.bind(this);
+        this._clearData =  this._clearData.bind(this);
     }
 
     
@@ -169,12 +174,17 @@ export default class MapScreen extends React.Component {
     listen() {
         let self = this;
         this.socket.on('show_notification', (val) => {
+            if(val.data.request_status == 'COMPLETED') {
+                console.log('COMPLETED', val)
+            }
             this.setState({
                 loaderVisible: false,
                 recivedNewReq: val,
                 tripStatus: val.data.request_status,
                 count: this.state.count + 1,
-                modalVisible: true,
+                modalVisible: val.data.request_status == "DECLINED" ? false :true,
+                Declined:val.data.request_status == "DECLINED" ? true : false,
+
             })
         });
     }
@@ -201,7 +211,6 @@ export default class MapScreen extends React.Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        debugger
         if (JSON.stringify(this.state) === JSON.stringify(nextState.someVar)) return false;
         return true;
     }
@@ -304,7 +313,7 @@ export default class MapScreen extends React.Component {
         this._clearData()
         Client.patch(`requests/truck/${this.state.requestId}/decline`).then(() => {
             this._clearData()
-        }).catch(err => { debugger })
+        }).catch(err => {  })
     }
 
     onPressCall(phoneNumber) {
@@ -324,6 +333,48 @@ export default class MapScreen extends React.Component {
             this.passData.carType = value;
             this.getTruckFare()
         })
+    }
+
+    preserveData(searchObj, old){
+        debugger
+        if (searchObj) {
+            if (searchObj.searchFrom == 'where') {
+                if (searchObj.searchDetails) {
+                    this.setState({
+                        region: {
+                            latitude: searchObj.searchDetails.geometry.location.lat,
+                            longitude: searchObj.searchDetails.geometry.location.lng,
+                            latitudeDelta: 0.0922,
+                            longitudeDelta: 0.0421,
+                        },
+                        whereText: searchObj.whereText,
+                        dropText: searchObj.dropText
+                    })
+                    this.passData = old;
+                    this.setState({
+                        carType: this.passData.carType
+                    }, () => { })
+                }
+            }
+            else {
+                if (searchObj.searchDetails) {
+                    this.setState({
+                        region: {
+                            latitude: searchObj.searchDetails.geometry.location.lat,
+                            longitude: searchObj.searchDetails.geometry.location.lng,
+                            latitudeDelta: 0.0922,
+                            longitudeDelta: 0.0421,
+                        },
+                        whereText: searchObj.whereText,
+                        dropText: searchObj.dropText
+                    })
+                    this.passData = old;
+                    this.setState({
+                        carType: this.passData.carType
+                    }, () => { })
+                }
+            }
+        }
     }
 
     _rate() {
@@ -363,7 +414,8 @@ export default class MapScreen extends React.Component {
     }
 
     render() {
-        debugger
+        let init = this.state.recivedNewReq ? this.state.recivedNewReq.data : null;
+        let receipt = init ? this.state.recivedNewReq.data.receipt : null;
         return (
             <View style={styles.mainViewStyle}>
                 <TouchableOpacity onPress={() => { this.props.navigation.dispatch(DrawerActions.toggleDrawer()) }} style={{ zIndex: 999, position: 'absolute', top: 40, left: 20 }}>
@@ -376,7 +428,7 @@ export default class MapScreen extends React.Component {
                     animationStyle={{ width: 100, height: 100 }}
                     speed={1}
                 />
-                <TouchableOpacity style={styles.searchView} disabled={this.state.tripStatus ? true : false} onPress={() => { this.props.navigation.navigate('Search', { from: "where", whereText: this.state.whereText, dropText: this.state.dropText, old: this.passData }); }}>
+                <TouchableOpacity style={styles.searchView} disabled={this.state.tripStatus ? true : false} onPress={() => { this.props.navigation.navigate('Search', { from: "where", whereText: this.state.whereText, dropText: this.state.dropText, old: this.passData , pres:this.preserveData.bind(this) }); }}>
                     <View style={styles.textIconStyle}>
                         <Icon
                             style={{ padding: 10 }}
@@ -396,7 +448,7 @@ export default class MapScreen extends React.Component {
                         />
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity disabled={this.state.tripStatus ? true : false} style={[styles.searchView, { top: 170 }]} onPress={() => { this.props.navigation.navigate('Search', { from: "drop", whereText: this.state.whereText, dropText: this.state.dropText, old: this.passData }); }}
+                <TouchableOpacity disabled={this.state.tripStatus ? true : false} style={[styles.searchView, { top: 170 }]} onPress={() => { this.props.navigation.navigate('Search', { from: "drop", whereText: this.state.whereText, dropText: this.state.dropText, old: this.passData, pres:this.preserveData.bind(this)   }); }}
                 >
                     <View style={styles.textIconStyle}>
                         <Icon
@@ -417,6 +469,9 @@ export default class MapScreen extends React.Component {
                         />
                     </View>
                 </TouchableOpacity>
+                {this.state.Declined &&
+                <Declined _clearData={this._clearData} Declined={this.state.Declined} data={this.state.recivedNewReq} />
+                }
                 <Modal
                     testID={'modal'}
                     isVisible={this.state.messageShow}
@@ -448,8 +503,8 @@ export default class MapScreen extends React.Component {
                     <PricingCard
                         color="#70B32F"
                         title="Total"
-                        price="25 JOD"
-                        info={['Manaaf Hgh', 'Jordan', 'Amman']}
+                        price={receipt?receipt.total : null}
+                        info={['Manaaf Hgh', `Time: ${receipt? receipt.trip_fare_time : null}`, 'City: Amman']}
                         onButtonPress={this.cancelTrip}
                         button={{ title: 'Finish', }}
                     />

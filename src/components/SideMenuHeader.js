@@ -6,12 +6,12 @@ import { colors } from '../common/theme';
 const SideMenuHeader = ({headerStyle,userPhoto,userName,userEmail}) =>{
    return (
         <View style={[styles.viewStyle,headerStyle]}>
-            <TouchableOpacity style={styles.userImageView} >
+            <View style={styles.userImageView} >
                  <Image 
                     source={userPhoto == null?require('../../assets/images/profilePic.png'):{uri:userPhoto}}
                     style={styles.imageStyle}
                 />
-            </TouchableOpacity>   
+            </View>   
             <View style={styles.headerTextStyle}>
                 <Text style={styles.ProfileNameStyle}>{userName?userName.toUpperCase():""}</Text>
             </View>

@@ -20,7 +20,8 @@ export default class SideMenu extends React.Component{
                 {key: 1, name: 'Book a Truck', navigationName: 'Map', icon: 'home', type: 'font-awesome', child: 'firstChild'},
                 {key: 2, name: 'Profile Settings', navigationName: 'Profile', icon: 'ios-person-add', type: 'ionicon', child: 'secondChild'},
                 {key: 3, name: 'History', navigationName: 'RideList', icon: 'car-sports', type: 'material-community', child: 'thirdChild'},
-                 {key: 4, name: 'Setting', navigationName: 'SettingScreen', icon: 'settings', type: 'material-community', child: 'fourthChild'},
+                {key: 4, name: 'Notification', navigationName: 'Notifications', icon: 'ios-notifications', type: 'ionicon', child: 'thirdChild'},
+                {key: 4, name: 'Setting', navigationName: 'SettingScreen', icon: 'settings', type: 'material-community', child: 'fourthChild'},
                 {key: 6, name: 'About Us',  navigationName: 'About', icon: 'info', type: 'entypo', child: 'sixthChild'},
                 {key: 7, name: 'Free Rides', navigationName:'VoucherScreen', icon: 'money', type: 'font-awesome', child: 'seventhChild'},
                 {key: 8, name: 'Sign Out', icon: 'sign-out', type: 'font-awesome', child: 'seventhChild'},
@@ -98,7 +99,7 @@ export default class SideMenu extends React.Component{
     render(){
         return(
             <View style={styles.mainViewStyle}>
-                <SideMenuHeader headerStyle={styles.myHeader} userPhoto={this.state.profile_image} userEmail={this.state.email} userName ={this.state.name} ></SideMenuHeader> 
+                <SideMenuHeader  headerStyle={styles.myHeader} userPhoto={this.state.profile_image} userEmail={this.state.email} userName ={this.state.name} ></SideMenuHeader> 
                 
                 <View style={styles.compViewStyle}>
                 <View style={[styles.vertialLine,{height: (width <= 320) ? width/1.53 : width/1.68 }]}></View>
