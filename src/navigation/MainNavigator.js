@@ -92,12 +92,7 @@ import SideMenu from '../components/SideMenu';
                 header : null
             }
         },
-        Map: {
-            screen: MapScreen,
-            navigationOptions:{
-                header: null
-            }
-        },
+       
         SelectType:{
             screen:SelectType,
             navigationOptions:{
@@ -137,12 +132,7 @@ import SideMenu from '../components/SideMenu';
     const DrawerRoutes = {
         'Map': {
             name: 'Map',
-            screen: createStackNavigator(AppStack, {
-                initialRouteName: 'Map', 
-                navigationOptions:{
-                    header: null
-                } 
-            })
+            screen: createStackNavigator(AppStack, {initialRouteName: 'Map',headerMode: 'none'})
         },
         'RideList': {
             name: 'RideList',

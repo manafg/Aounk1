@@ -43,7 +43,7 @@ export default class MapScreen extends React.Component {
         super(props);
         this.socket = io(SOCKET_URL, {
             path: '/socket.io',
-            pingTimeout: 6000000, 
+            pingTimeout: 6000000,
             pingInterval: 30000
         });
         this.state = {
@@ -58,9 +58,9 @@ export default class MapScreen extends React.Component {
             recivedNewReq: null,
             modalVisible: false,
             fromActivity: false,
-            messageShow:false,
-            message:null,
-            Declined:false,
+            messageShow: false,
+            message: null,
+            Declined: false,
             region: {
                 latitude: 31.963158,
                 longitude: 35.930359,
@@ -97,12 +97,12 @@ export default class MapScreen extends React.Component {
         this.requestTruck = this.requestTruck.bind(this);
         this.cancelTrip = this.cancelTrip.bind(this);
         this._rate = this._rate.bind(this)
-        this._writeMessage=this._writeMessage.bind(this);
+        this._writeMessage = this._writeMessage.bind(this);
         this._showMessage = this._showMessage.bind(this);
-        this._clearData =  this._clearData.bind(this);
+        this._clearData = this._clearData.bind(this);
     }
 
-    
+
     async componentWillMount() {
         let searchObj = await this.props.navigation.getParam('searchObj') ? this.props.navigation.getParam('searchObj') : null;
         if (searchObj) {
@@ -174,7 +174,7 @@ export default class MapScreen extends React.Component {
     listen() {
         let self = this;
         this.socket.on('show_notification', (val) => {
-            if(val.data.request_status == 'COMPLETED') {
+            if (val.data.request_status == 'COMPLETED') {
                 console.log('COMPLETED', val)
             }
             this.setState({
@@ -182,8 +182,8 @@ export default class MapScreen extends React.Component {
                 recivedNewReq: val,
                 tripStatus: val.data.request_status,
                 count: this.state.count + 1,
-                modalVisible: val.data.request_status == "DECLINED" ? false :true,
-                Declined:val.data.request_status == "DECLINED" ? true : false,
+                modalVisible: val.data.request_status == "DECLINED" ? false : true,
+                Declined: val.data.request_status == "DECLINED" ? true : false,
 
             })
         });
@@ -294,16 +294,16 @@ export default class MapScreen extends React.Component {
             }, tripStatus: null, fareScreen: null
         })
     }
-    
-    _writeMessage(val){
-        this.setState({message:val})
+
+    _writeMessage(val) {
+        this.setState({ message: val })
     }
-    _hideMessage(){
-        this.setState({messageShow:false})
+    _hideMessage() {
+        this.setState({ messageShow: false })
     }
 
-    _showMessage(){
-        this.setState({messageShow:true})
+    _showMessage() {
+        this.setState({ messageShow: true })
     }
     cancelTrip() {
         //     if(!state || !activity) {
@@ -313,7 +313,7 @@ export default class MapScreen extends React.Component {
         this._clearData()
         Client.patch(`requests/truck/${this.state.requestId}/decline`).then(() => {
             this._clearData()
-        }).catch(err => {  })
+        }).catch(err => { })
     }
 
     onPressCall(phoneNumber) {
@@ -335,7 +335,7 @@ export default class MapScreen extends React.Component {
         })
     }
 
-    preserveData(searchObj, old){
+    preserveData(searchObj, old) {
         debugger
         if (searchObj) {
             if (searchObj.searchFrom == 'where') {
@@ -399,7 +399,7 @@ export default class MapScreen extends React.Component {
                 return <WaitingTruck noTruck={this.state.noTruck} cancelTrip={this.cancelTrip} />
                 break;
             case "ACTIVE":
-                return <AcceptModal data={this.state.recivedNewReq} />
+                return <AcceptModal _showMessage={this._showMessage} data={this.state.recivedNewReq} />
                 break;
             case "STARTED":
                 return <StartedTrip />
@@ -428,7 +428,7 @@ export default class MapScreen extends React.Component {
                     animationStyle={{ width: 100, height: 100 }}
                     speed={1}
                 />
-                <TouchableOpacity style={styles.searchView} disabled={this.state.tripStatus ? true : false} onPress={() => { this.props.navigation.navigate('Search', { from: "where", whereText: this.state.whereText, dropText: this.state.dropText, old: this.passData , pres:this.preserveData.bind(this) }); }}>
+                <TouchableOpacity style={styles.searchView} disabled={this.state.tripStatus ? true : false} onPress={() => { this.props.navigation.navigate('Search', { from: "where", whereText: this.state.whereText, dropText: this.state.dropText, old: this.passData, pres: this.preserveData.bind(this) }); }}>
                     <View style={styles.textIconStyle}>
                         <Icon
                             style={{ padding: 10 }}
@@ -448,7 +448,7 @@ export default class MapScreen extends React.Component {
                         />
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity disabled={this.state.tripStatus ? true : false} style={[styles.searchView, { top: 170 }]} onPress={() => { this.props.navigation.navigate('Search', { from: "drop", whereText: this.state.whereText, dropText: this.state.dropText, old: this.passData, pres:this.preserveData.bind(this)   }); }}
+                <TouchableOpacity disabled={this.state.tripStatus ? true : false} style={[styles.searchView, { top: 170 }]} onPress={() => { this.props.navigation.navigate('Search', { from: "drop", whereText: this.state.whereText, dropText: this.state.dropText, old: this.passData, pres: this.preserveData.bind(this) }); }}
                 >
                     <View style={styles.textIconStyle}>
                         <Icon
@@ -470,7 +470,7 @@ export default class MapScreen extends React.Component {
                     </View>
                 </TouchableOpacity>
                 {this.state.Declined &&
-                <Declined _clearData={this._clearData} Declined={this.state.Declined} data={this.state.recivedNewReq} />
+                    <Declined _clearData={this._clearData} Declined={this.state.Declined} data={this.state.recivedNewReq} />
                 }
                 <Modal
                     testID={'modal'}
@@ -484,15 +484,21 @@ export default class MapScreen extends React.Component {
                     backdropTransitionInTiming={600}
                     backdropTransitionOutTiming={600}>
                     <View style={styles.messageContent}>
-                        <Text style={styles.messageContentTitle}>Type your message</Text>
-                        <View style={{borderWidth:1, borderRadius:5, width:'100%'}}>
-                        <Input
-                            onChange={this._writeMessage}
-                            placeholder='Write your message here'
-                        />
+                        <Text style={styles.messageContentTitle}>Send a message !</Text>
+                        <View style={{ borderWidth: 1, borderRadius: 5, width: '100%' }}>
+                            <Input
+                                onChange={this._writeMessage}
+                                placeholder='Write your message here'
+                            />
                         </View>
-                        <Button testID={'close-button'} title="Send" />
-                        <Button testID={'close-button'} title="Close" />
+                        <TouchableOpacity style={styles.buttonGrid}>
+
+                            <Text style={styles.ratingText}>Send</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={()=>{this._hideMessage()}} style={[styles.buttonGrid,{marginTop:0,marginBottom:0}]}>
+
+                            <Text style={styles.ratingText}>Cancel</Text>
+                        </TouchableOpacity>
                     </View>
                 </Modal>
                 <Modal
@@ -503,8 +509,8 @@ export default class MapScreen extends React.Component {
                     <PricingCard
                         color="#70B32F"
                         title="Total"
-                        price={receipt?receipt.total : null}
-                        info={['Manaaf Hgh', `Time: ${receipt? receipt.trip_fare_time : null}`, 'City: Amman']}
+                        price={receipt ? receipt.total : null}
+                        info={['Manaaf Hgh', `Time: ${receipt ? receipt.trip_fare_time : null}`, 'City: Amman']}
                         onButtonPress={this.cancelTrip}
                         button={{ title: 'Finish', }}
                     />
@@ -574,6 +580,12 @@ const styles = StyleSheet.create({
         fontSize: 20,
         marginBottom: 12,
     },
+    ratingText: {
+        color: "white",
+        fontSize: 14,
+        textAlign: 'center',
+        justifyContent: 'center'
+    },
     searchView: {
         borderColor: "#AEB0B3",
         borderWidth: 1,
@@ -636,6 +648,18 @@ const styles = StyleSheet.create({
         padding: 10,
         fontWeight: '900',
         color: 'white'
+    },
+    buttonGrid: {
+        borderRadius: 10,
+        width: '50%',
+        padding: 10,
+        height: 40,
+        marginBottom: 10,
+        marginTop: 10,
+        alignItems: 'center',
+        marginLeft: 40,
+        marginRight: 40,
+        backgroundColor: '#0D1C60',
     },
     text2: {
         fontFamily: 'Roboto-Regular',

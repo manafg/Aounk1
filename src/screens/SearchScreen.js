@@ -34,8 +34,8 @@ export default class SearchScreen extends Component {
             if(pageName){
                 this.props.navigation.replace('Movingfurniture',{ searchObj: searchObj,old:oldData}); 
             } else {
-                this.props.navigation.state.params.pres(searchObj, oldData);
-                this.props.navigation.goBack(); 
+                    this.props.navigation.goBack();
+                    this.props.navigation.state.params.pres(searchObj, oldData);
             }       
         }
         else if(from=='drop'){

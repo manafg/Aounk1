@@ -10,7 +10,9 @@ import {
   } from 'react-native';
 import { Header } from 'react-native-elements';
 import { colors } from '../common/theme';
-import Client from '../API/Client'
+import Client from '../API/Client';
+import { DrawerActions } from 'react-navigation'
+
 export default class RideListPage extends React.Component {
     constructor(props){
         super(props);
@@ -57,7 +59,7 @@ export default class RideListPage extends React.Component {
         <View style={styles.mainView}>
             <Header 
                 backgroundColor={colors.GREY.default}
-                leftComponent={{icon:'md-menu', type:'ionicon', color:colors.WHITE, size: 30, component: TouchableWithoutFeedback,onPress: ()=>{this.props.navigation.toggleDrawer();} }}
+                leftComponent={{icon:'md-menu', type:'ionicon', color:colors.WHITE, size: 30, component: TouchableWithoutFeedback,onPress: ()=>{this.props.navigation.dispatch(DrawerActions.toggleDrawer())}}}
                 centerComponent={<Text style={styles.headerTitleStyle}>My Rides</Text>}
                 outerContainerStyles={styles.headerStyle}
                 innerContainerStyles={{marginLeft:10, marginRight: 10}}

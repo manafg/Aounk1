@@ -46,6 +46,39 @@ export default class AcceptModal extends React.Component {
                 <View style={styles.subTextSec}>
                     <Text style={styles.subText}>Your Driver Will arrive in {data.time ? data.time : "10 min"}</Text>
                 </View>
+                <TouchableOpacity onPress={()=>{Linking.openURL(`tel:${phone}`)}} style={styles.buttonGrid}>
+                    <Icon
+                        style={{ padding: 5 }}
+                        name='ios-call'
+                        type='ionicon'
+                        color={"#72BE44"}
+                        size={30}
+                        containerStyle={{ flex: 1 }}
+                    />
+                    <Text style={styles.ratingText}>Call</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={()=>{this.props._showMessage()}} style={[styles.buttonGrid,{left:140}]}>
+                    <Icon
+                        style={{ padding: 5 }}
+                        name='ios-chatboxes'
+                        type='ionicon'
+                        color={"#72BE44"}
+                        size={30}
+                        containerStyle={{ flex: 1 }}
+                    />
+                    <Text style={styles.ratingText}>Chat</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={[styles.buttonGrid,{left:250}]}>
+                    <Icon
+                        style={{ padding: 5 }}
+                        name='md-close'
+                        type='ionicon'
+                        color={"#72BE44"}
+                        size={30}
+                        containerStyle={{ flex: 1 }}
+                    />
+                    <Text style={styles.ratingText}>Cancel</Text>
+                </TouchableOpacity>
             </View>
             {/* <TouchableOpacity
                 style={styles.button}
@@ -128,6 +161,14 @@ const styles = StyleSheet.create({
         left: 150,
         width: 160,
         flex: 1,
+    },
+    buttonGrid:{
+        position: 'absolute',
+        top: 150,
+        left: 30,
+        width: 100,
+        flex: 1,
+        flexDirection:'row'
     },
     subText: {
         width: 140,

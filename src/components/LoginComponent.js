@@ -176,10 +176,7 @@ const styles = StyleSheet.create({
         alignItems: 'flex-end',
         elevation: 20,
         justifyContent: 'flex-end',
-        shadowColor: colors.BLACK, 
-        shadowRadius: 10, 
-        shadowOpacity: 0.6, 
-        shadowOffset: {width: 0, height: 4}
+       
     },
     buttonContainer: {
         flex: 1, 
@@ -188,11 +185,6 @@ const styles = StyleSheet.create({
     },
     loginButtonContainer: { 
         flex: 1, 
-        elevation:5,
-        shadowColor: colors.BLACK,
-        shadowRadius: 10,
-        shadowOpacity: 0.6,
-        shadowOffset: {width: 0, height: 4}
     },
     loginButtonStyle: {
         backgroundColor: "#00164F",
