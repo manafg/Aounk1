@@ -32,7 +32,8 @@ export default class SearchScreen extends Component {
             oldData.wherelongitude = details.geometry.location.lng,
             oldData.whereText = details.formatted_address 
             if(pageName){
-                this.props.navigation.replace('Movingfurniture',{ searchObj: searchObj,old:oldData}); 
+                this.props.navigation.state.params.searchData(searchObj, oldData);
+                this.props.navigation.dismiss();
             } else {
                     this.props.navigation.goBack();
                     this.props.navigation.state.params.pres(searchObj, oldData);
@@ -52,7 +53,8 @@ export default class SearchScreen extends Component {
             oldData.droplongitude = details.geometry.location.lng,
             oldData.droptext = details.formatted_address
             if(pageName){
-                this.props.navigation.replace('Movingfurniture',{ searchObj: searchObj,old:oldData}); 
+                this.props.navigation.goBack();
+                this.props.navigation.state.params.searchData(searchObj, oldData);
             } else {
                 this.props.navigation.state.params.pres(searchObj, oldData);
                 this.props.navigation.goBack(); 

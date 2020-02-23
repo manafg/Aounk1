@@ -11,12 +11,9 @@ export default class StepOne extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isDateTimePickerVisible: false,
-            Date: "Select appointment date",
-            Time: "Select appointment time",
+            isDateTimePickerVisible: this.props.hideDate,
             showTime: false,
         };
-        this.handleDatePicked = this.handleDatePicked.bind(this)
     }
     showTime = () =>{
         this.setState({showTime:true})
@@ -25,25 +22,22 @@ export default class StepOne extends Component {
     hideTime = () =>{
         this.setState({showTime:false})
     }
-    handleTime = (time)=>{
-        console.log(time)
-        this.setState({Time:time}, ()=>{
-            this.hideTime();
-        })
+
+    componentWillReceiveProps(props){
+        if(JSON.stringify(this.props) != JSON.stringify(props) ) {
+            this.setState({
+                isDateTimePickerVisible : props.hideDate,
+                showTime: props.showTime
+            })
+        }
     }
+  
     showDateTimePicker = () => {
         this.setState({ isDateTimePickerVisible: true });
     };
 
     hideDateTimePicker = () => {
         this.setState({ isDateTimePickerVisible: false });
-    };
-
-    handleDatePicked = date => {
-        let stDate = JSON.stringify(date)
-        this.setState({Date:stDate},()=>{
-            this.hideDateTimePicker();
-        })
     };
 
     render() {
@@ -59,7 +53,7 @@ export default class StepOne extends Component {
                             size={23}
                             containerStyle={{ flex: 1 }}
                         />
-                        <Text numberOfLines={1} style={styles.textStyle}>{this.state.Date}</Text>
+                        <Text numberOfLines={1} style={styles.textStyle}>{this.props.Date}</Text>
                         
                     </View>
                 </TouchableOpacity>
@@ -73,19 +67,19 @@ export default class StepOne extends Component {
                             size={23}
                             containerStyle={{ flex: 1 }}
                         />
-                        <Text numberOfLines={1} style={styles.textStyle}>{this.state.Time}</Text>
+                        <Text numberOfLines={1} style={styles.textStyle}>{this.props.Time}</Text>
                         
                     </View>
                 </TouchableOpacity>
                 <DateTimePicker
                     isVisible={this.state.isDateTimePickerVisible}
-                    onConfirm={this.handleDatePicked}
-                    onCancel={this.hideDateTimePicker}
+                    onConfirm={this.props.handleDatePicked}
+                    onCancel={()=>{  this.hideDateTimePicker}}
                     mode='date'
                 />
                  <DateTimePicker
                     isVisible={this.state.showTime}
-                    onConfirm={this.handleTime}
+                    onConfirm={this.props.handleTime}
                     onCancel={this.hideTime}
                     mode='time'
                 />

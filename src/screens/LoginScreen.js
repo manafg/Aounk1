@@ -59,7 +59,7 @@ export default class LoginScreen extends Component {
         
       }
       Client.post('account/users/login', logData).then((res)=>{
-        let role = res.data.roles[0] == "PASSENGER"
+        let role = res.data.user.roles[0] == "PASSENGER"
         if(!role){
           Alert.alert(
             '',
@@ -71,8 +71,8 @@ export default class LoginScreen extends Component {
             {cancelable: false},
           );
         }
-        AsyncStorage.setItem('userID',res.data.userProfile.id);
-        AsyncStorage.setItem('Profile',res.data.userProfile.name)
+        AsyncStorage.setItem('userID',res.data.user.userId);
+        AsyncStorage.setItem('Profile',res.data.user.profile.name)
         AsyncStorage.setItem('Token', res.data.token);
         Client.defaults.headers['Authorization'] = `Bearer ${res.data.token}`;
         this.props.navigation.navigate('SelectType')

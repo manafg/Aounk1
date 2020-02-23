@@ -11,10 +11,12 @@ import PhoneLand from './PhoneLand';
 import SelectType from './SelectType'
 import PinCodeScreen from './PinCodeScreen';
 import Movingfurniture from './Movingfurniture';
+import OffersPage from './OffersPage';
 import VoucherScreen from './VoucherScreen';
 import SettingScreen from './SettingScreen';
 
 export {
+    OffersPage,
     SettingScreen,
     VoucherScreen,
     Movingfurniture,

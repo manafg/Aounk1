@@ -18,13 +18,15 @@ export default class SideMenu extends React.Component{
             heightIphoneSix : false,
             sideMenuList: [
                 {key: 1, name: 'Book a Truck', navigationName: 'Map', icon: 'home', type: 'font-awesome', child: 'firstChild'},
-                {key: 2, name: 'Profile Settings', navigationName: 'Profile', icon: 'ios-person-add', type: 'ionicon', child: 'secondChild'},
-                {key: 3, name: 'History', navigationName: 'RideList', icon: 'car-sports', type: 'material-community', child: 'thirdChild'},
-                {key: 4, name: 'Notification', navigationName: 'Notifications', icon: 'ios-notifications', type: 'ionicon', child: 'thirdChild'},
-                {key: 4, name: 'Setting', navigationName: 'SettingScreen', icon: 'settings', type: 'material-community', child: 'fourthChild'},
-                {key: 6, name: 'About Us',  navigationName: 'About', icon: 'info', type: 'entypo', child: 'sixthChild'},
-                {key: 7, name: 'Free Rides', navigationName:'VoucherScreen', icon: 'money', type: 'font-awesome', child: 'seventhChild'},
-                {key: 8, name: 'Sign Out', icon: 'sign-out', type: 'font-awesome', child: 'seventhChild'},
+                {key: 2, name: 'Move Furniture', navigationName: 'Movingfurniture', icon: 'truck-delivery', type: 'material-community', child: 'firstChild'},
+                {key: 3, name: 'Profile Settings', navigationName: 'Profile', icon: 'ios-person-add', type: 'ionicon', child: 'secondChild'},
+                {key: 4, name: 'History', navigationName: 'RideList', icon: 'car-sports', type: 'material-community', child: 'thirdChild'},
+                {key: 5, name: 'Offers', navigationName: 'OffersPage', icon: 'price-tag', type: 'entypo', child: 'thirdChild'},
+                {key: 6, name: 'Notification', navigationName: 'Notifications', icon: 'ios-notifications', type: 'ionicon', child: 'thirdChild'},
+                {key: 7, name: 'Setting', navigationName: 'SettingScreen', icon: 'settings', type: 'material-community', child: 'fourthChild'},
+                {key: 8, name: 'About Us',  navigationName: 'About', icon: 'info', type: 'entypo', child: 'sixthChild'},
+                {key: 9, name: 'Free Rides', navigationName:'VoucherScreen', icon: 'money', type: 'font-awesome', child: 'seventhChild'},
+                {key: 10, name: 'Sign Out', icon: 'sign-out', type: 'font-awesome', child: 'seventhChild'},
                 ],
             profile_image:null
         }

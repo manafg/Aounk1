@@ -336,7 +336,6 @@ export default class MapScreen extends React.Component {
     }
 
     preserveData(searchObj, old) {
-        debugger
         if (searchObj) {
             if (searchObj.searchFrom == 'where') {
                 if (searchObj.searchDetails) {

@@ -18,16 +18,31 @@ export default class StepThree extends Component {
             <View style={styles.textAreaContainer}>
                 <CheckBox
                     title='Unpack furniture'
-                    checked={this.state.checked}
+                    checked={this.props.unpackFurniture}
+                    onPress={() => this.props.unpackFurnitureF()}
                 />
                   <CheckBox
                     title='Wraping clothes'
-                    checked={this.state.checked}
+                    checked={this.props.wrappingClothes}
+                    onPress={() => {this.props.wrappingClothesF()}}
                 />
                   <CheckBox
                     title='Cleaning house'
-                    checked={this.state.checked}
+                    checked={this.props.cleaning}
+                    onPress={() => this.props.cleaningF()}
                 />
+                <Text style={styles.header}>House Space</Text>
+                <TextInput 
+                    style={[styles.textArea,{height:50}]}
+                    placeholder="Hosue Space"
+                    onChangeText={(text) => this.props.houseSpaceF(text)}
+                    value={this.props.houseSpace} />
+                <Text style={styles.header}>Offer Validaty</Text>
+                <TextInput 
+                    style={[styles.textArea,{height:50}]}
+                    placeholder="Offer Validaty"
+                    onChangeText={(text) => this.props.offerValidtyF(text)}
+                    value={this.props.houseSpace} />
                 <Text style={styles.header}>Descrption</Text>
                 <TextInput 
                     style={styles.textArea}
@@ -35,7 +50,7 @@ export default class StepThree extends Component {
                     numberOfLines={4}
                     placeholder="Add more descrption here"
                     onChangeText={(text) => this.setState({ text })}
-                    value={this.state.text} />
+                    value={this.props.text} />
             </View>
         )
     }

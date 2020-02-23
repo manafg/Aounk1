@@ -14,13 +14,19 @@ import {
     Movingfurniture,
     VoucherScreen,
     SettingScreen,
-    // About,
+    OffersPage,
     AboutPage
 } from '../screens';
 import SideMenu from '../components/SideMenu';
 
 //app stack for user end
     export const AppStack = {
+        OffersPage:{
+            screen:OffersPage,
+            navigationOptions:{
+                header:null
+            }
+        },
         VoucherScreen:{
             screen:VoucherScreen,
             navigationOptions: {
@@ -130,6 +136,11 @@ import SideMenu from '../components/SideMenu';
 
     //drawer routes, you can add routes here for drawer or sidemenu
     const DrawerRoutes = {
+       
+        'Movingfurniture':{
+            name: 'Movingfurniture',
+            screen: createStackNavigator(AppStack, {initialRouteName: 'Movingfurniture',headerMode: 'none'})
+        },
         'Map': {
             name: 'Map',
             screen: createStackNavigator(AppStack, {initialRouteName: 'Map',headerMode: 'none'})
@@ -149,6 +160,10 @@ import SideMenu from '../components/SideMenu';
         'Notifications': {
             name: 'Notifications',
             screen: createStackNavigator(AppStack, { initialRouteName: 'Notifications', headerMode: 'none' })
+        },
+         'OffersPage':{
+            name: 'OffersPage',
+            screen: createStackNavigator(AppStack, {initialRouteName: 'OffersPage',headerMode: 'none'})
         },
     };
 
