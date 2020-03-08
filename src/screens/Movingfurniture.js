@@ -76,7 +76,7 @@ export default class Movingfurniture extends React.Component {
     ////upload section
 
     getPermissionAsync = async () => {
-        debugger
+         
         if (Constants.platform.ios) {
             const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
             if (status !== 'granted') {
@@ -86,7 +86,7 @@ export default class Movingfurniture extends React.Component {
     }
 
     _updateImage(result){
-        debugger
+         
         let images = [];
         images = this.state.images;
         images.push(result)
@@ -94,7 +94,7 @@ export default class Movingfurniture extends React.Component {
     }
 
     _pickImage = async () => {
-        debugger
+         
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.All,
             allowsEditing: true,
@@ -107,7 +107,7 @@ export default class Movingfurniture extends React.Component {
     };
 
     UploadDocs(){
-        debugger
+         
         var bodyFormData = new FormData();
         bodyFormData.append('images',this.state.images)
        
@@ -120,12 +120,12 @@ export default class Movingfurniture extends React.Component {
             Authorization: `Bearer ${token}`}
             })
             .then(function (response) {
-                debugger
+                 
                 this.props.navigation.navigate('SelectType')
             })
             .catch(function (response) {
                 //handle error
-                debugger
+                 
                 console.log(response);
             });
     }
@@ -264,7 +264,7 @@ export default class Movingfurniture extends React.Component {
     }
     
     submit = (self)=> {
-        debugger
+         
         let obj =
         {
             "userId": "string",
@@ -280,11 +280,11 @@ export default class Movingfurniture extends React.Component {
           }
 
           Client.post(`requests/move-furniture/create`,obj).then((res)=>{
-              debugger
+               
               this.setState({requestId:res.data._id})
               this.getPermissionAsync()
           }).catch((res)=>{
-            debugger
+             
           })
     }
     render(){

@@ -20,16 +20,17 @@ export default class OffersPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            offers: [{ a: 1 }]
+            offers: []
         }
     }
 
     componentDidMount() {
-        // Client.get(`requests/move-furniture`).then((res) => {
-        //     this.setState({
-        //         offers: res
-        //     })
-        // })
+        Client.get(`requests/move-furniture`).then((res) => {
+             
+            this.setState({
+                offers: res.data
+            })
+        }).catch((res)=>{ })
     }
 
     newData = ({ item }) => {
@@ -38,6 +39,12 @@ export default class OffersPage extends React.Component {
                 <PricingCard
                     color="#72BE44"
                     title="You have "
+                    onButtonPress={() => {
+                         
+                        this.props.navigation.navigate('offersDetail',{
+                            requestId:item._id
+                        })
+                    }}
                     price="3 offers"
                     info={['1 LB', 'Cleaning', 'Wraping Fetautr']}
                     button={{ title: 'View More'}}

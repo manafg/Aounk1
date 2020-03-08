@@ -14,9 +14,13 @@ import Movingfurniture from './Movingfurniture';
 import OffersPage from './OffersPage';
 import VoucherScreen from './VoucherScreen';
 import SettingScreen from './SettingScreen';
+import offersDetail from './OffersDetail';
+import SingleOffer from './SingleOffer'
 
 export {
+    SingleOffer,
     OffersPage,
+    offersDetail,
     SettingScreen,
     VoucherScreen,
     Movingfurniture,

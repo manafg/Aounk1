@@ -18,7 +18,7 @@ export default class StepFour extends Component {
     render() {
         return (
             <View style={styles.textAreaContainer}>
-                <TouchableOpacity onPress={() => {debugger; this.props._pickImage() }} style={{ flex: 1, width: 100, height: 70, borderRadius: 10, marginLeft: 8, marginBottom: 20, paddingTop: 15, opacity: 0.5, backgroundColor: 'grey', justifyContent: 'flex-start' }}>
+                <TouchableOpacity onPress={() => { ; this.props._pickImage() }} style={{ flex: 1, width: 100, height: 70, borderRadius: 10, marginLeft: 8, marginBottom: 20, paddingTop: 15, opacity: 0.5, backgroundColor: 'grey', justifyContent: 'flex-start' }}>
                     <Icon
                         style={{ padding: 5, zIndex: 999, marginTop: 0 }}
                         name='camera'

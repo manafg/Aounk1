@@ -1,6 +1,7 @@
 import { createStackNavigator, createDrawerNavigator } from 'react-navigation';
 import { 
     ProfileScreen, 
+    SingleOffer,
     RideListPage, 
     NotificationPage, 
     MapScreen, 
@@ -12,6 +13,7 @@ import {
     PhoneLand,
     SelectType,
     Movingfurniture,
+    offersDetail,
     VoucherScreen,
     SettingScreen,
     OffersPage,
@@ -21,6 +23,18 @@ import SideMenu from '../components/SideMenu';
 
 //app stack for user end
     export const AppStack = {
+        SingleOffer : {
+            screen:SingleOffer,
+            navigationOptions:{
+                header:null
+            }
+        },
+        offersDetail:{
+            screen:offersDetail,
+            navigationOptions:{
+                header:null
+            }
+        },
         OffersPage:{
             screen:OffersPage,
             navigationOptions:{
@@ -92,6 +106,12 @@ import SideMenu from '../components/SideMenu';
 
     //authentication stack for user before login
     export const AuthStack = createStackNavigator({
+        offersDetail:{
+            screen:offersDetail,
+            navigationOptions:{
+                header:null
+            }
+        },
         Movingfurniture:{
             screen: Movingfurniture,
             navigationOptions: {
@@ -136,7 +156,7 @@ import SideMenu from '../components/SideMenu';
 
     //drawer routes, you can add routes here for drawer or sidemenu
     const DrawerRoutes = {
-       
+        
         'Movingfurniture':{
             name: 'Movingfurniture',
             screen: createStackNavigator(AppStack, {initialRouteName: 'Movingfurniture',headerMode: 'none'})
@@ -164,7 +184,7 @@ import SideMenu from '../components/SideMenu';
          'OffersPage':{
             name: 'OffersPage',
             screen: createStackNavigator(AppStack, {initialRouteName: 'OffersPage',headerMode: 'none'})
-        },
+        }
     };
 
     //main navigator for user end
