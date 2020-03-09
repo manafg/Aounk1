@@ -123,7 +123,7 @@ export default class OffersDetail extends Component {
                         <Text style={{ fontSize: 20, marginLeft: 15, marginTop: 10 }}>To: Al Rabieh</Text>
                     </View>
                     <View style={styles.collapsibleItem1}>
-                        <OfferDetailMap mapRegion={this.region} mapStyle={styles.map} />
+                        <OfferDetailMap mapRegion={this.region} markerCord={{lat:this.region.latitude,long:this.region.longitude}} mapStyle={styles.map} />
                     </View>
                 </CollapsibleList>
                 <CollapsibleList
@@ -226,8 +226,6 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        paddingTop: 40,
-        backgroundColor: "white"
     },
     wrapperCollapsibleList: {
         marginTop: 0,

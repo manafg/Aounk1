@@ -55,8 +55,9 @@ export default class OffersPage extends React.Component {
 
     render() {
         return (
+                 
             <View style={styles.container}>
-                <Header
+               <Header
                     backgroundColor={"#E0E1E3"}
                     leftComponent={{ icon: 'md-menu', type: 'ionicon', color: "#FFF", size: 30, component: TouchableWithoutFeedback, onPress: () => { this.props.navigation.dispatch(DrawerActions.toggleDrawer()) } }}
                     centerComponent={<Text style={styles.headerTitleStyle}>Offers</Text>}
@@ -74,6 +75,7 @@ export default class OffersPage extends React.Component {
                 }
 
             </View>
+           
         )
     }
 }

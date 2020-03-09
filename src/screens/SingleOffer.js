@@ -31,7 +31,8 @@ export default class SingleOffer extends React.Component {
         let userData = this.state.data ? this.state.data.getDriver :null;
         let offerData = this.state.data?this.state.data.offer :null;
         return (
-            <View>
+            <View style={{ 
+            alignItems: "center", flex:1}}>
              <Header
                     backgroundColor={"#E0E1E3"}
                     leftComponent={{ icon: 'md-menu', type: 'ionicon', color: "#FFF", size: 30, component: TouchableWithoutFeedback, onPress: () => { this.props.navigation.dispatch(DrawerActions.toggleDrawer()) } }}
@@ -43,9 +44,10 @@ export default class SingleOffer extends React.Component {
             
             {this.state.data && 
                 <Card
+                    imageWrapperStyle={{justifyContent:'center', alignItems:'center'}}
                     containerStyle={{width:'90%', height:'80%'}}
                     title={`${userData.profile.name}`}
-                    imageStyle={{width:150,height:150, marginLeft:100}}
+                    imageStyle={{width:150,height:150 }}
                     image={require('../../assets/images/userThumb.png')}>
                     <Text style={{ marginBottom: 20 , marginTop:60,  fontSize:20 }}>
                        Price : {offerData.price} JOD

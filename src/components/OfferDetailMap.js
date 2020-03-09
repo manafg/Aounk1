@@ -19,13 +19,13 @@ export default class OfferDetailMap extends Component {
                 region={mapRegion}
                 onMapReady={() => this.setState({ marginBottom: 1 })}
             >
-                <Marker
+                {/* <Marker
                     coordinate={markerCord}
                     title={'marker_title'}
                     description={'marker_description'}
                     // image={require('../../assets/images/rsz_2red_pin.png')}
                 >
-                </Marker>
+                </Marker> */}
             </MapView>
         );
     }
