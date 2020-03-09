@@ -10,6 +10,7 @@ export default class SingleOffer extends React.Component {
         this.state = {
             data: null
         }
+        this.acceptOffer= this.acceptOffer.bind(this)
     }
 
     componentDidMount() {
@@ -59,6 +60,7 @@ export default class SingleOffer extends React.Component {
                         Emai : {userData.email} 
                     </Text>
                     <Button
+                        onPress={()=>{this.acceptOffer()}}
                         style={{marginTop:40,  }}
                         icon={<Icon name='check' color='#ffffff' />}
                         buttonStyle={{backgroundColor:"#70B32F", borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0 }}
