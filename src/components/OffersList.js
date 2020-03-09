@@ -36,7 +36,7 @@ export default class OffersList extends React.Component {
     newData = ({ item }, props) => {
         debugger
         return (
-            <View>
+            <View >
             <TouchableOpacity onPress={()=>{
                  debugger
                 props.props.navigation.navigate('SingleOffer',{
@@ -72,7 +72,10 @@ export default class OffersList extends React.Component {
 
     render() {
         return (
-            <View style={{ flex: 1 }}>
+            <View style={{ flex: 1}}>
+            <View style={{alignItems:'center', padding:20}} >
+                <Text style={{fontSize:24, fontWeight:'bold', color:'#70B32F'}}> Offers Recived </Text>
+            </View>
                 <FlatList
                     keyExtractor={(item, index) => index.toString()}
                     data={this.props.offers}
