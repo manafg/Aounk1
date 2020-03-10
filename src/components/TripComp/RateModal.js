@@ -22,7 +22,7 @@ export default class RateModal extends React.Component {
                         <View style={styles.headerTextStyle}>
                             <Text style={styles.ProfileNameStyle}> Rate Your Trip</Text>
                             <AirbnbRating
-                                onFinishRating={this.props._rate}
+                                onFinishRating={(rate)=>this.props._rate(rate)}
                                 count={5}
                                 defaultRating={0}
                                 size={20}

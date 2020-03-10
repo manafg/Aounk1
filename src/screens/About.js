@@ -22,7 +22,7 @@ export default class AboutPage extends React.Component {
         
             <View style={styles.mainView}>
                 <Header 
-                    backgroundColor={colors.GREY.default}
+                    backgroundColor={"#00164F"}
                     leftComponent={{icon:'md-menu', type:'ionicon', color:colors.WHITE, size: 30, component: TouchableWithoutFeedback,onPress: ()=>{this.props.navigation.toggleDrawer();} }}
                     centerComponent={<Text style={styles.headerTitleStyle}>About Us</Text>}
                     outerContainerStyles={styles.headerStyle}
