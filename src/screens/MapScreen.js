@@ -376,8 +376,20 @@ export default class MapScreen extends React.Component {
         }
     }
 
-    _rate() {
-        this.setState({ modalVisible: false, fareScreen: true })
+    _rate(rate) {
+        let obj = {
+            "_id": "string",
+            "driverRate": 0,
+            "passengerRate": rate,
+            "driverNote": "string",
+            "passengerNote": "string",
+            "requestId": `${this.state.requestId}`,
+            "createdAt": "2020-03-10T15:32:09.535Z",
+            "updatedAt": "2020-03-10T15:32:09.535Z"
+          }
+        Client.post(`/truck/${this.state.requestId}/rate`,obj).then(()=>{
+            this.setState({ modalVisible: false, fareScreen: true })
+        })  
     }
 
     statusTrip() {

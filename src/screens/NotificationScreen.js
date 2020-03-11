@@ -23,7 +23,7 @@ export default class NotificationPage extends React.Component {
     return (
         <View style={styles.mainView}>
             <Header 
-                backgroundColor={colors.GREY.default}
+                backgroundColor={"#00164F"}
                 leftComponent={{icon:'md-menu', type:'ionicon', color: colors.WHITE, size: 30, component: TouchableWithoutFeedback,onPress: ()=>{this.props.navigation.toggleDrawer();} }}
                 centerComponent={<Text style={styles.headerTitleStyle}>Notifications</Text>}
                 rightComponent={{icon:'ios-notifications', type:'ionicon', color: colors.WHITE, size: 30, component: TouchableWithoutFeedback,onPress: ()=>{} }}

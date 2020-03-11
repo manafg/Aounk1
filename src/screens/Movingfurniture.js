@@ -295,11 +295,16 @@ export default class Movingfurniture extends React.Component {
         return(
         <View style={{flex:1}}> 
             <Header 
-            backgroundColor={"grey"}
+            backgroundColor={"#00164F"}
             leftComponent={{icon:'md-menu', type:'ionicon', color:"#FFF", size: 30, component: TouchableWithoutFeedback,onPress: ()=>{this.props.navigation.dispatch(DrawerActions.toggleDrawer())} }}
-            centerComponent={<Text style={styles.headerTitleStyle}>My Rides</Text>}
-            outerContainerStyles={styles.headerStyle}
-            innerContainerStyles={{marginLeft:10, marginRight: 10}}
+            centerComponent={<Text style={{ 
+                width:'100%',
+                marginLeft:'20%',
+                color:'white',
+                fontSize:20,
+                fontWeight:'bold'
+            }}>Moving-Furniture</Text>}
+            innerContainerStyles={{marginLeft:10,marginRight: 10}}
         />
             <ProgressSteps activeStep={this.state.step} onSubmit={this.onSubmit}>
                 <ProgressStep nextBtnDisabled={stepOneVald} onNext={()=>this.firstStep(this.state)} label="Date & Time">

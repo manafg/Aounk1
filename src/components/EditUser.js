@@ -103,7 +103,7 @@ export default class EditUser extends React.Component {
         return(
            <View style={styles.main}>
                 <Header 
-                    backgroundColor={colors.TRANSPARENT}
+                    backgroundColor={"#00164F"}
                     leftComponent={{icon:'md-close', type:'ionicon', color:colors.BLACK, size: 35, component: TouchableWithoutFeedback,onPress: onPressBack }}
                     outerContainerStyles={styles.headerContainerStyle}
                     innerContainerStyles={styles.headerInnerContainer}

@@ -1,9 +1,9 @@
 {
+  "expoServerPort": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
   "devToolsPort": 19002,
-  "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 2326,
-  "expoServerNgrokUrl": "https://n7-qe2.manafg.aounk1.exp.direct",
-  "packagerNgrokUrl": "https://packager.n7-qe2.manafg.aounk1.exp.direct",
-  "ngrokPid": 2414
+  "packagerPort": null,
+  "packagerPid": null
 }

@@ -58,8 +58,8 @@ export default class OffersPage extends React.Component {
                  
             <View style={styles.container}>
                <Header
-                    backgroundColor={"#E0E1E3"}
-                    leftComponent={{ icon: 'md-menu', type: 'ionicon', color: "#FFF", size: 30, component: TouchableWithoutFeedback, onPress: () => { this.props.navigation.dispatch(DrawerActions.toggleDrawer()) } }}
+                    backgroundColor={"#00164F"}
+                    leftComponent={{ icon: 'md-menu', type: 'ionicon', color: "#FFF", size: 40, component: TouchableWithoutFeedback, onPress: () => { this.props.navigation.dispatch(DrawerActions.toggleDrawer()) } }}
                     centerComponent={<Text style={styles.headerTitleStyle}>Offers</Text>}
                     outerContainerStyles={styles.headerStyle}
                     innerContainerStyles={{ marginLeft: 10, marginRight: 10 }}
@@ -81,6 +81,11 @@ export default class OffersPage extends React.Component {
 }
 
 const styles = StyleSheet.create({
+    headerTitleStyle:{
+        color:'white',
+        fontSize:20,
+        fontWeight:'bold'
+    },
     container: {
         flex: 1,
     },

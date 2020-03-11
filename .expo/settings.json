@@ -1,8 +1,7 @@
 {
-  "hostType": "lan",
+  "urlRandomness": "c7-fby",
+  "hostType": "tunnel",
   "lanType": "ip",
   "dev": true,
-  "minify": false,
-  "urlRandomness": "n7-qe2",
-  "https": false
+  "minify": false
 }
