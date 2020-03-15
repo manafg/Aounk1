@@ -59,7 +59,7 @@ export default class OffersPage extends React.Component {
             <View style={styles.container}>
                <Header
                     backgroundColor={"#00164F"}
-                    leftComponent={{ icon: 'md-menu', type: 'ionicon', color: "#FFF", size: 40, component: TouchableWithoutFeedback, onPress: () => { this.props.navigation.dispatch(DrawerActions.toggleDrawer()) } }}
+                    leftComponent={{ icon: 'ios-arrow-back', type: 'ionicon', color: "#FFF", size: 40, component: TouchableWithoutFeedback, onPress: () => { this.props.navigation.goBack()}}}
                     centerComponent={<Text style={styles.headerTitleStyle}>Offers</Text>}
                     outerContainerStyles={styles.headerStyle}
                     innerContainerStyles={{ marginLeft: 10, marginRight: 10 }}

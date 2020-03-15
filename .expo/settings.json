@@ -1,7 +1,8 @@
 {
-  "urlRandomness": "c7-fby",
-  "hostType": "tunnel",
+  "urlRandomness": "xd-ggd",
+  "hostType": "lan",
   "lanType": "ip",
   "dev": true,
-  "minify": false
+  "minify": false,
+  "https": false
 }

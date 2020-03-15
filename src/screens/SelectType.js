@@ -29,7 +29,7 @@ export default class SelectType extends Component {
                 <TouchableOpacity onPress={()=>{this.props.navigation.navigate('Map')}}>
                     <Image style={{ width: 130, height: 130, }} source={require('../../assets/images/selectSmBg.png')} />
                    </TouchableOpacity>
-                    <TouchableOpacity onPress={()=>{ this.props.navigation.navigate('Movingfurniture')}}>
+                    <TouchableOpacity onPress={()=>{ this.props.navigation.navigate('MovefurnitreLandingPage')}}>
                     <Image style={{ width: 130, height: 130, }} source={require('../../assets/images/moveFurn.png')} />
                     </TouchableOpacity>
                 </View>

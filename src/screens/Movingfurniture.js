@@ -34,6 +34,8 @@ export default class Movingfurniture extends React.Component {
             images:[],
             whereText: "Amman Jordan",
             dropText: "Jandweel",
+            floorFrom:null,
+            floorTo:null,
             unpackFurniture:false,
             "wrappingClothes": false,
             "cleaning": false,
@@ -69,7 +71,28 @@ export default class Movingfurniture extends React.Component {
         this.getPermissionAsync =  this.getPermissionAsync.bind(this);
         this._updateImage = this._updateImage.bind(this);
         this._pickImage = this._pickImage.bind(this);
+        this.floorFrom = this.floorFromF.bind(this)
+        this.floorTo= this.floorToF.bind(this)
     }
+
+    floorFromF(val) {
+        if(!isNaN(val)){
+        let value = parseInt(val)
+        this.setState({
+            floorFrom:value
+        })
+        }else return
+    }
+
+    floorToF(val) {
+        if(!isNaN(val)){
+            let value = parseInt(val)
+            this.setState({
+                floorTo:value
+            })
+            }else return
+    }
+
     onSubmit(){
       this.UploadDocs();
     }
@@ -296,7 +319,7 @@ export default class Movingfurniture extends React.Component {
         <View style={{flex:1}}> 
             <Header 
             backgroundColor={"#00164F"}
-            leftComponent={{icon:'md-menu', type:'ionicon', color:"#FFF", size: 30, component: TouchableWithoutFeedback,onPress: ()=>{this.props.navigation.dispatch(DrawerActions.toggleDrawer())} }}
+            leftComponent={{icon:'ios-arrow-back', type:'ionicon', color:"#FFF", size: 30, component: TouchableWithoutFeedback,onPress: ()=>{this.props.navigation.goBack()} }}
             centerComponent={<Text style={{ 
                 width:'100%',
                 marginLeft:'20%',
@@ -315,6 +338,10 @@ export default class Movingfurniture extends React.Component {
                 </ProgressStep>
                 <ProgressStep label="Descrption" onNext={()=>{this.submit(this)}}>
                    <StepThree
+                        floorFromF={this.floorFrom}
+                        floorToF={this.floorTo}
+                        floorTo={this.state.floorTo}
+                        floorFrom={this.state.floorFrom}
                         unpackFurnitureF={this.unpackFurniture}
                         wrappingClothesF={this.wrappingClothes}
                         cleaningF={this.cleaning}

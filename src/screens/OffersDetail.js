@@ -42,7 +42,7 @@ export default class OffersDetail extends Component {
     getOffers() {
         const { requestId } = this.props.navigation.state.params;
         Clint.get(`requests/move-furniture/${requestId}/offers`).then((res) => {
-
+            debugger
             this.setState({ offers: res.data })
         }).catch((res) => {
 

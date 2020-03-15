@@ -13,6 +13,7 @@ import {
     PhoneLand,
     SelectType,
     Movingfurniture,
+    MovefurnitreLandingPage,
     offersDetail,
     VoucherScreen,
     SettingScreen,
@@ -23,6 +24,12 @@ import SideMenu from '../components/SideMenu';
 
 //app stack for user end
     export const AppStack = {
+        MovefurnitreLandingPage:{
+            screen:MovefurnitreLandingPage,
+            navigationOptions:{
+                header:null
+            }
+        },
         SingleOffer : {
             screen:SingleOffer,
             navigationOptions:{

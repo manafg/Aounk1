@@ -35,14 +35,28 @@ export default class StepThree extends Component {
                 <TextInput 
                     style={[styles.textArea,{height:50}]}
                     placeholder="Hosue Space"
-                    onChangeText={(text) => this.props.houseSpaceF(text)}
+                    onChangeText={(text1) => this.props.houseSpaceF(text1)}
                     value={this.props.houseSpace} />
                 <Text style={styles.header}>Offer Validaty</Text>
                 <TextInput 
                     style={[styles.textArea,{height:50}]}
                     placeholder="Offer Validaty"
-                    onChangeText={(text) => this.props.offerValidtyF(text)}
-                    value={this.props.houseSpace} />
+                    onChangeText={(text2) => this.props.offerValidtyF(text2)}
+                    value={this.props.offerValidty} />
+                <Text style={styles.header}>Pickup floor</Text>
+                <TextInput 
+                    style={[styles.textArea,{height:50}]}
+                    placeholder="Offer Validaty"
+                    keyboardType='numeric'
+                    onChangeText={(text2) => this.props.floorFromF(text2)}
+                    value={this.props.floorFrom} />
+                <Text style={styles.header}>Dropup floor</Text>
+                <TextInput 
+                    style={[styles.textArea,{height:50}]}
+                    placeholder="Offer Validaty"
+                    keyboardType='numeric'
+                    onChangeText={(text2) => this.props.floorToF(text2)}
+                    value={this.props.floorTo} />
                 <Text style={styles.header}>Descrption</Text>
                 <TextInput 
                     style={styles.textArea}

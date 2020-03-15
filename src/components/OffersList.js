@@ -10,21 +10,7 @@ export default class OffersList extends React.Component {
         super(props);
         this.state = {
             data: [
-                { Status: 'Your Booking with GT908753 is confirm,please wait for ride', time: '2 mins ago' },
-                { Status: 'Your Booking with GT908753 is cancelled successfully', time: '10 mins ago' },
-                { Status: 'Your payment Successfully submitted', time: '2 days ago' },
-                { Status: 'Hey Sudipta!Your ride is completed', time: '10 Oct,2018' },
-                { Status: 'Your Booking with GT908753 is confirm,please wait for ride', time: '5 Oct,2018' },
-                { Status: 'Your Booking with GT908753 is confirm,please wait for ride', time: '2 mins ago' },
-                { Status: 'Your Booking with GT908753 is cancelled successfully', time: '10 mins ago' },
-                { Status: 'Your payment Successfully submitted', time: '2 days ago' },
-                { Status: 'Hey Sudipta!Your ride is completed', time: '10 Oct,2018' },
-                { Status: 'Your Booking with GT908753 is confirm,please wait for ride', time: '5 Oct,2018' },
-                { Status: 'Your Booking with GT908753 is confirm,please wait for ride', time: '2 mins ago' },
-                { Status: 'Your Booking with GT908753 is cancelled successfully', time: '10 mins ago' },
-                { Status: 'Your payment Successfully submitted', time: '2 days ago' },
-                { Status: 'Hey Sudipta!Your ride is completed', time: '10 Oct,2018' },
-                { Status: 'Your Booking with GT908753 is confirm,please wait for ride', time: '5 Oct,2018' },
+              
             ],
         }
         this.newData = this.newData.bind(this)
@@ -34,11 +20,10 @@ export default class OffersList extends React.Component {
     }
 
     newData = ({ item }, props) => {
-        debugger
         return (
             <View >
             <TouchableOpacity onPress={()=>{
-                 debugger
+                debugger
                 props.props.navigation.navigate('SingleOffer',{
                             requestId:item._id
                         })
@@ -49,7 +34,7 @@ export default class OffersList extends React.Component {
                             <View style={styles.imageHolder}>
                                 <Image
                                     style={styles.cabLogoStyle}
-                                    source={require('../../assets/images/cablogo.png')}
+                                    source={require('../../assets/images/logo.png')}
                                 />
                             </View>
                             <View style={styles.statusView}>

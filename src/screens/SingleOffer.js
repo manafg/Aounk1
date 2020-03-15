@@ -14,22 +14,25 @@ export default class SingleOffer extends React.Component {
     }
 
     componentDidMount() {
+        debugger
         const { requestId } = this.props.navigation.state.params;
         Client.get(`requests/move-furniture/offers/${requestId}`).then((res) => {
             debugger
             this.setState({ data: res.data })
-        })
+        }).then((res)=>{debugger})
     }
 
     acceptOffer() {
+        debugger
         const { requestId } = this.props.navigation.state.params;
-        Client.post(`requests/move-furniture/offers/${requestId}/accept`, {}).then((res) => {
-            this.setState({ data: res.data })
+        Client.patch(`requests/move-furniture/offers/${requestId}/accept`, {}).then((res) => {
+            debugger
             this.props.navigation.navigate('OffersPage')
         })
     }
 
     render() {
+        debugger
         let userData = this.state.data ? this.state.data.getDriver :null;
         let offerData = this.state.data?this.state.data.offer :null;
         return (

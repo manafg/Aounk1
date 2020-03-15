@@ -215,7 +215,7 @@ export default class MapScreen extends React.Component {
         return true;
     }
     checkStatus() {
-        Client.get(`account/activity-status`).then((res) => {
+        Client.get(`account/activities/trip`).then((res) => {
             this.setState({
                 fromActivity: true,
                 loaderVisible: false,
