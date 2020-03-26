@@ -233,8 +233,7 @@ export default class Movingfurniture extends React.Component {
         }
     }
 
-    async searchData() {
-        let searchObj = await this.props.navigation.getParam('searchObj') ? this.props.navigation.getParam('searchObj') : null;
+    async searchData(searchObj , oldData) {
         if (searchObj) {
             if (searchObj.searchFrom == 'where') {
                 if (searchObj.searchDetails) {
@@ -248,7 +247,7 @@ export default class Movingfurniture extends React.Component {
                         whereText: searchObj.whereText,
                         dropText: searchObj.dropText
                     })
-                    this.passData = this.props.navigation.getParam('old');
+                    this.passData = oldData;
                     this.setState({
                         carType: this.passData.carType
                     }, () => { })
@@ -266,7 +265,7 @@ export default class Movingfurniture extends React.Component {
                         whereText: searchObj.whereText,
                         dropText: searchObj.dropText
                     })
-                    this.passData = this.props.navigation.getParam('old');
+                    this.passData = oldData;
                     this.setState({
                         carType: this.passData.carType
                     }, () => { })
@@ -336,7 +335,7 @@ export default class Movingfurniture extends React.Component {
                 <ProgressStep label="Location">
                     <StepTwo whereText={this.state.whereText} mapRegion={this.state.region} dropText={this.state.dropText} passData={this.passData} searchData={this.searchData} navigation={this.props.navigation} />
                 </ProgressStep>
-                <ProgressStep label="Descrption" onNext={()=>{this.submit(this)}}>
+                <ProgressStep label="Descrption" onSubmit={()=>{this.submit(this)}}>
                    <StepThree
                         floorFromF={this.floorFrom}
                         floorToF={this.floorTo}
@@ -353,12 +352,12 @@ export default class Movingfurniture extends React.Component {
                         houseSpace={this.state.houseSpace}
                     />
                 </ProgressStep>
-                <ProgressStep  onSubmit={this.onSubmit} label="Gallery">
+                {/* <ProgressStep  onSubmit={this.onSubmit} label="Gallery">
                    <StepFour
                    images={this.state.images}
                         _pickImage={ this._pickImage}
                    />
-                </ProgressStep>
+                </ProgressStep> */}
             </ProgressSteps>
         </View>
         )

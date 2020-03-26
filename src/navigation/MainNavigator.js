@@ -2,6 +2,7 @@ import { createStackNavigator, createDrawerNavigator } from 'react-navigation';
 import { 
     ProfileScreen, 
     SingleOffer,
+    SearchScreenMove,
     RideListPage, 
     NotificationPage, 
     MapScreen, 
@@ -24,6 +25,12 @@ import SideMenu from '../components/SideMenu';
 
 //app stack for user end
     export const AppStack = {
+        SearchScreenMove:{
+            screen:SearchScreenMove,
+            navigationOptions:{
+                header:null
+            }
+        },
         MovefurnitreLandingPage:{
             screen:MovefurnitreLandingPage,
             navigationOptions:{

@@ -15,10 +15,12 @@ import OffersPage from './OffersPage';
 import VoucherScreen from './VoucherScreen';
 import SettingScreen from './SettingScreen';
 import offersDetail from './OffersDetail';
-import SingleOffer from './SingleOffer'
+import SingleOffer from './SingleOffer';
+import SearchScreenMove from './SearchScreenMove';
 import MovefurnitreLandingPage from './MovefurnitreLandingPage'
 
 export {
+    SearchScreenMove,
     MovefurnitreLandingPage,
     SingleOffer,
     OffersPage,

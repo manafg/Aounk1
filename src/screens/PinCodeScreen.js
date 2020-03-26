@@ -25,14 +25,14 @@ export default class PinCodeScreen extends Component {
     }
     verfiyPin() {
         const { navigation } = this.props;
-        let phone = navigation.getParam('phoneId', '+962785507893');
+        let phone = navigation.getParam('phoneId', '785507893');
         Client.patch('account/verify/phone',{ 
             "phone":"+962"+phone,
             "code":parseInt(this.state.pin)
         }).then((res)=>{
         this.props.navigation.navigate('Reg',{
             itemId: 1,
-            phoneid: res.phoneId,
+            phoneid: `+962${res.phoneId}`,
           })
         }).catch((err)=>{
             console.log(err)

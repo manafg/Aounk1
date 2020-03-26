@@ -23,13 +23,12 @@ export default class RegistrationPage extends React.Component {
           password: "manafG1992@", 
           phoneId:data
         }
+        let profile = {
+          "firstName": fname,
+          "lastName": lname,
+        }
         Client.post('account/user/create', regData).then((res)=>{
-          let profile = 
-            {
-              "firstName": "manaf",
-              "lastName": "Hgh",
-              "userId": res.data.user._id
-            }
+            profile.userId = res.data.user._id
             Client.defaults.headers['Authorization'] = `Bearer ${res.data.token}`
             Client.post(`account/user/passenger/profile`,profile).then((res)=>{
             this.props.navigation.navigate('Login')

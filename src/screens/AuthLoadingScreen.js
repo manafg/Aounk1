@@ -15,19 +15,44 @@ import axios from 'axios';
 export class AuthLoadingScreen extends React.Component {
   constructor(props) {
     super(props);
+    this.state={
+      tokenExist:false
+    }
     this.checkValidToken();
   }
 
   // Fetch the token from storage then navigate to our appropriate place
   checkValidToken = () => {
-    this.props.navigation.navigate('Login')
-    return
     AsyncStorage.getAllKeys().then((key) => {
       key.forEach(k => {
+        if(k=='MobileNumber'){
+          AsyncStorage.getItem(k).then((mobileNumber) => {
+            Client.post('account/phone/verify/create', {
+              "phone":"+962"+mobileNumber,
+              "userType": "PASSENGER"
+              })
+              .then( (res) =>{
+                  //
+                  if(res.data !== "Success resent verify code!") {
+                    this.props.navigation.navigate('Reg',{
+                      phoneId: res.data.phoneId
+                    });
+                  } else {
+                    this.props.navigation.navigate('PinCodeScreen',{
+                      itemId: 1,
+                      phoneId: mobileNumber
+                      }).catch((err)=>{
+                        console.log(err)
+                      })
+                  }
+              })
+          })
+         
+        }
         if (k == "Token") {
           AsyncStorage.getItem(k).then((token) => {
             if(!token){
-              this.props.navigation.navigate('Login')
+              this.props.navigation.navigate('PhoneLand');
             }
             axios.get(`http://api.ibshr.com/api/account/is-valid`, {
               headers: {
@@ -65,7 +90,11 @@ export class AuthLoadingScreen extends React.Component {
       //     Authorization: `Bearer ${token}`
       // }
       // })
-    }).done();
+    }).done((res)=>{
+      if(!this.state.tokenExist) {
+        this.props.navigation.navigate('PhoneLand');
+      }
+    });
   };
 
 

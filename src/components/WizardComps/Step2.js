@@ -17,7 +17,7 @@ export default class StepTwo extends Component {
         return (
 
             <View style={styles.container}>
-                <TouchableOpacity style={styles.searchView}  onPress={() => { this.props.navigation.navigate('Search', { from: "where", pageName:'moveFurn', whereText: this.props.whereText, dropText: this.props.dropText, old: this.props.passData, searchData:this.props.searchData }); }}>
+                <TouchableOpacity style={styles.searchView}  onPress={() => { this.props.navigation.navigate('SearchScreenMove', { from: "where", pageName:'moveFurn', whereText: this.props.whereText, dropText: this.props.dropText, old: this.props.passData, searchData:this.props.searchData }); }}>
                     <View style={styles.textIconStyle}>
                         <Icon
                             style={{ padding: 50 }}
@@ -30,7 +30,7 @@ export default class StepTwo extends Component {
                         <Text numberOfLines={1} style={styles.textStyle}>{this.props.whereText}</Text>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity  style={[styles.searchView, { top: 20 }]} onPress={() => { this.props.navigation.navigate('Search', { from: "drop", pageName:'moveFurn', whereText: this.props.whereText, dropText: this.props.dropText, old: this.passData, searchData:this.props.searchData  }); }}
+                <TouchableOpacity  style={[styles.searchView, { top: 20 }]} onPress={() => { this.props.navigation.navigate('SearchScreenMove', { from: "drop", pageName:'moveFurn', whereText: this.props.whereText, dropText: this.props.dropText, old: this.props.passData, searchData:this.props.searchData  }); }}
                 >
                     <View style={styles.textIconStyle}>
                         <Icon

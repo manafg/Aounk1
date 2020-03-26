@@ -1,1 +1,9 @@
-{}
+{
+  "expoServerPort": 19000,
+  "expoServerNgrokUrl": "https://rx-4wf.manafg.aounk1.exp.direct",
+  "packagerNgrokUrl": "https://packager.rx-4wf.manafg.aounk1.exp.direct",
+  "ngrokPid": 12282,
+  "devToolsPort": 19002,
+  "packagerPort": 19001,
+  "packagerPid": 12268
+}
