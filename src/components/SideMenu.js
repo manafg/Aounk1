@@ -22,9 +22,9 @@ export default class SideMenu extends React.Component{
                 {key: 3, name: 'Profile Settings', navigationName: 'Profile', icon: 'ios-person-add', type: 'ionicon', child: 'secondChild'},
                 {key: 4, name: 'History', navigationName: 'RideList', icon: 'car-sports', type: 'material-community', child: 'thirdChild'},
                 {key: 6, name: 'Notification', navigationName: 'Notifications', icon: 'ios-notifications', type: 'ionicon', child: 'thirdChild'},
-                {key: 7, name: 'Setting', navigationName: 'SettingScreen', icon: 'settings', type: 'material-community', child: 'fourthChild'},
+                {key: 7, name: 'Payment', navigationName: 'SettingScreen', icon: 'settings', type: 'material-community', child: 'fourthChild'},
                 {key: 8, name: 'About Us',  navigationName: 'About', icon: 'info', type: 'entypo', child: 'sixthChild'},
-                {key: 9, name: 'Free Rides', navigationName:'VoucherScreen', icon: 'money', type: 'font-awesome', child: 'seventhChild'},
+                {key: 9, name: 'Free Loads', navigationName:'VoucherScreen', icon: 'money', type: 'font-awesome', child: 'seventhChild'},
                 {key: 10, name: 'Sign Out', icon: 'sign-out', type: 'font-awesome', child: 'seventhChild'},
                 ],
             profile_image:null

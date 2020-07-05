@@ -16,7 +16,8 @@ export class AuthLoadingScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state={
-      tokenExist:false
+      tokenExist:false,
+      mobileExist:false
     }
     this.checkValidToken();
   }
@@ -24,8 +25,22 @@ export class AuthLoadingScreen extends React.Component {
   // Fetch the token from storage then navigate to our appropriate place
   checkValidToken = () => {
     AsyncStorage.getAllKeys().then((key) => {
+      if(!key.length){this.props.navigation.navigate('PhoneLand'); }
       key.forEach(k => {
-        if(k=='MobileNumber'){
+        if (k == "Token") {
+          this.setState({tokenExist:true})
+          AsyncStorage.getItem(k).then((token) => {
+            if(!token){
+              this.props.navigation.navigate('PhoneLand');
+            } else {
+              Client.defaults.headers['Authorization'] = `Bearer ${token}`;
+              AsyncStorage.setItem('Token', token);
+              this.props.navigation.navigate('SelectType')
+            }
+           
+          })
+        } else if(k=='MobileNumber'){
+          if(this.state.tokenExist) { return} else { this.setState({mobileExist:true})}
           AsyncStorage.getItem(k).then((mobileNumber) => {
             Client.post('account/phone/verify/create', {
               "phone":"+962"+mobileNumber,
@@ -48,38 +63,10 @@ export class AuthLoadingScreen extends React.Component {
               })
           })
          
-        }
-        if (k == "Token") {
-          AsyncStorage.getItem(k).then((token) => {
-            if(!token){
-              this.props.navigation.navigate('PhoneLand');
-            }
-            axios.get(`http://api.ibshr.com/api/account/is-valid`, {
-              headers: {
-                Accept: 'application/json;charset=UTF-8',
-                Authorization: `Bearer ${token}`
-              }
-            }).then((res)=>{
-              if(res.data.isValidToken) {
-                Client.defaults.headers['Authorization'] = `Bearer ${token}`;
-                AsyncStorage.setItem('Token', token);
-                this.props.navigation.navigate('SelectType')
-              }else {
-                axios.get(`http://api.ibshr.com/api/account/refresh-token`,{
-                  headers: {
-                    Accept: 'application/json;charset=UTF-8',
-                    Authorization: `Bearer ${token}`
-                  }
-                }).then((res)=>{
-                  AsyncStorage.setItem('Token', res.data.token);
-                  Client.defaults.headers['Authorization'] = `Bearer ${token}`;
-                  this.props.navigation.navigate('SelectType')
-                })
-              }
-            }).catch((res)=>{
-            })
-          })
-        }
+        } else {
+          this.props.navigation.navigate('phoneLand')
+         }
+        
         AsyncStorage.getItem(k);
       })
 
@@ -91,9 +78,11 @@ export class AuthLoadingScreen extends React.Component {
       // }
       // })
     }).done((res)=>{
-      if(!this.state.tokenExist) {
-        this.props.navigation.navigate('PhoneLand');
-      }
+      // if(!this.state.tokenExist && !this.state.mobileExist) {
+      //   this.props.navigation.navigate('PhoneLand');
+      // } else if(this.state.tokenExist) {  this.props.navigation.navigate('SelectType'); } else if(this.state.mobileExist) {
+      //   this.props.navigation.navigate('PinCodeScreen'); 
+      //  }
     });
   };
 

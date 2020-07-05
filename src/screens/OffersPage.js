@@ -15,6 +15,7 @@ import Client from '../API/Client'
 import { DrawerActions } from 'react-navigation'
 import { Header, PricingCard } from 'react-native-elements';
 import { ProgressSteps, ProgressStep } from 'react-native-progress-steps';
+import EmptyComp from '../components/EmptyComp'
 
 export default class OffersPage extends React.Component {
     constructor(props) {
@@ -71,7 +72,7 @@ export default class OffersPage extends React.Component {
                         renderItem={this.newData}
                     />
                     :
-                    <Text> There is no offers yet </Text>
+                    <EmptyComp message= "There is no offers yet " /> 
                 }
 
             </View>

@@ -20,6 +20,7 @@ import {
     WaitingTruck,
     RateModal
 } from "../components/TripComp";
+import ErrMessage from '../API/ErrMeassage';
 import { MapComponent } from '../components';
 import { DrawerActions } from 'react-navigation'
 import { Icon, PricingCard, Input } from 'react-native-elements';
@@ -47,6 +48,8 @@ export default class MapScreen extends React.Component {
             pingInterval: 30000
         });
         this.state = {
+            errMeassage: null,
+            showErr: null,
             count: 0,
             noTruck: false,
             requestId: null,
@@ -100,6 +103,7 @@ export default class MapScreen extends React.Component {
         this._writeMessage = this._writeMessage.bind(this);
         this._showMessage = this._showMessage.bind(this);
         this._clearData = this._clearData.bind(this);
+        this.handleClose = this.handleClose.bind(this);
     }
 
 
@@ -205,8 +209,8 @@ export default class MapScreen extends React.Component {
             })
 
         }).catch((res) => {
-            console.log(res)
-            this.setState({ loaderVisible: false })
+            this.setState({ showErr: true, loaderVisible: false, errMeassage: res.response.data.error.message })
+
         })
     }
 
@@ -225,7 +229,7 @@ export default class MapScreen extends React.Component {
                 modalVisible: true,
             })
         }).catch((res) => {
-
+            this.setState({ showErr: true, errMeassage: res.response.data.error.message })
         })
 
     }
@@ -257,18 +261,8 @@ export default class MapScreen extends React.Component {
                 })
             }, 1000)
         }).catch((err) => {
-            console.log(err);
-            this.setState({ loaderVisible: false })
             this.setModalVisible(false)
-            Alert.alert(
-                'Some thing went wrong',
-                'Please try again in five minutes',
-                [
-
-                    { text: 'Confirem', onPress: () => this.cancelTrip() },
-                ],
-                { cancelable: false },
-            );
+            this.setState({ showErr: true, loaderVisible: false, errMeassage: res.response.data.error.message })
 
         })
     }
@@ -313,7 +307,9 @@ export default class MapScreen extends React.Component {
         this._clearData()
         Client.patch(`requests/truck/${this.state.requestId}/decline`).then(() => {
             this._clearData()
-        }).catch(err => { })
+        }).catch(err => {
+            this.setState({ showErr: true, loaderVisible: false, errMeassage: res.response.data.error.message })
+        })
     }
 
     onPressCall(phoneNumber) {
@@ -386,10 +382,12 @@ export default class MapScreen extends React.Component {
             "requestId": `${this.state.requestId}`,
             "createdAt": "2020-03-10T15:32:09.535Z",
             "updatedAt": "2020-03-10T15:32:09.535Z"
-          }
-        Client.post(`/truck/${this.state.requestId}/rate`,obj).then(()=>{
+        }
+        Client.post(`truck/${this.state.requestId}/rate`, obj).then(() => {
             this.setState({ modalVisible: false, fareScreen: true })
-        })  
+        }).catch(() => {
+            this.setState({ showErr: true, loaderVisible: false, errMeassage: res.response.data.error.message })
+        })
     }
 
     statusTrip() {
@@ -424,11 +422,18 @@ export default class MapScreen extends React.Component {
         }
     }
 
+    handleClose = () => {
+        this.setState({ showErr: false , errMeassage:''})
+      }
+
     render() {
         let init = this.state.recivedNewReq ? this.state.recivedNewReq.data : null;
         let receipt = init ? this.state.recivedNewReq.data.receipt : null;
         return (
             <View style={styles.mainViewStyle}>
+                {this.state.showErr &&
+                    <ErrMessage handleClose={this.handleClose} message={this.state.errMeassage} showErr={this.state.showErr} />
+                }
                 <TouchableOpacity onPress={() => { this.props.navigation.dispatch(DrawerActions.toggleDrawer()) }} style={{ zIndex: 999, position: 'absolute', top: 40, left: 20 }}>
                     <Image style={{ width: 30, height: 30 }} source={require('../../assets/images/menu.png')} />
                 </TouchableOpacity>
@@ -506,7 +511,7 @@ export default class MapScreen extends React.Component {
 
                             <Text style={styles.ratingText}>Send</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={()=>{this._hideMessage()}} style={[styles.buttonGrid,{marginTop:0,marginBottom:0}]}>
+                        <TouchableOpacity onPress={() => { this._hideMessage() }} style={[styles.buttonGrid, { marginTop: 0, marginBottom: 0 }]}>
 
                             <Text style={styles.ratingText}>Cancel</Text>
                         </TouchableOpacity>

@@ -54,7 +54,6 @@ export default class StepOne extends Component {
                             containerStyle={{ flex: 1 }}
                         />
                         <Text numberOfLines={1} style={styles.textStyle}>{this.props.Date}</Text>
-                        
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={this.showTime} style={[styles.searchView,{marginTop:20}]}>

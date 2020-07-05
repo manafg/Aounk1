@@ -150,6 +150,7 @@ export default class LoginComponent extends Component {
                     />
                 </View>
                 
+                
             </View>
         );
     }

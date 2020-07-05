@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ImageBackground, Text, Dimensions, ScrollView, KeyboardAvoidingView, TouchableOpacity, Image, TouchableWithoutFeedback, LayoutAnimation, Platform } from 'react-native';
+import { View, ImageBackground, Text, Dimensions, ScrollView, KeyboardAvoidingView, TouchableOpacity, Image, TouchableWithoutFeedback, LayoutAnimation, Platform, SafeAreaView } from 'react-native';
 import Background from './Background';
 import { Icon, Button, Header, Input } from 'react-native-elements'
 import { colors } from '../common/theme';
@@ -11,11 +11,15 @@ export default class Registration extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            fname:'',
+            lname:'',
             email: '',
             mobile: '',
             phoneId: '',
             password: '',
             confPassword: '',
+            lnameValid:true,
+            fnameValid:true,
             mobileValid: true,
             emailValid: true,
             passwordValid: true,
@@ -112,7 +116,7 @@ export default class Registration extends React.Component {
 
         if (emailValid && passwordValid && fnameValid && lnameValid && cnfPwdValid) {
             //register function of smart component
-            onPressRegister("","","",this.state.email, this.state.password);
+            onPressRegister(this.state.fname,this.state.lname,"",this.state.email, this.state.password);
             this.setState({ email: '', password: '', confPassword: '' })
         }
     }
@@ -123,18 +127,17 @@ export default class Registration extends React.Component {
             <ImageBackground style={[styles.imgBackground, { paddingTop: 240 }]}
                 resizeMode='cover'
                 source={require('../../assets/images/reg_page.png')}>
-                {/* <Header 
+                <Header 
                     backgroundColor={colors.TRANSPARENT}
                     leftComponent={{icon:'ios-arrow-back', type:'ionicon', color:colors.GREY.default, size: 35, component: TouchableWithoutFeedback,onPress: onPressBack }}
                     outerContainerStyles={styles.headerContainerStyle}
                     innerContainerStyles={styles.headerInnerContainer}
-                /> */}
-                <ScrollView style={styles.scrollViewStyle}>
+                />
                     {/* <View style={styles.logo}>
                         <Image source={require('../../assets/images/logo.png')} />
                     </View> */}
-                    <KeyboardAvoidingView behavior={Platform.OS == 'ios' ? "padding" : "padding"} style={styles.form}>
-                        <View style={styles.containerStyle}>
+                    <KeyboardAvoidingView behavior={Platform.OS == 'ios' ? "padding" : "height"} style={styles.form}>
+                        <SafeAreaView style={styles.containerStyle}>
                             
                             <View style={styles.textInputContainerStyle}>
                                 <Input
@@ -244,13 +247,12 @@ export default class Registration extends React.Component {
                                 onPress={() => { this.onPressRegister() }}
                                 loading={loading}
                             >
-                                <Text style={{ color: 'white' }}> Continue </Text>
+                                <Text style={{ color: 'white' }}> Sign Up </Text>
                             </TouchableOpacity>
                             {/* </View> */}
                             <View style={styles.gapView} />
-                        </View>
+                        </SafeAreaView>
                     </KeyboardAvoidingView>
-                </ScrollView>
             </ImageBackground>
         );
     }
@@ -258,8 +260,6 @@ export default class Registration extends React.Component {
 
 const styles = {
     imgBackground: {
-        width: '100%',
-        height: '100%',
         flex: 1
     },
     headerContainerStyle: {
@@ -323,8 +323,7 @@ const styles = {
         marginLeft: 0
     },
     containerStyle: {
-        flexDirection: 'column',
-        marginTop: 20
+      flex:1
     },
     form: {
         flex: 1,

@@ -10,6 +10,7 @@ import {
     Alert,
     TouchableWithoutFeedback
 } from 'react-native';
+import ErrMessage from '../API/ErrMeassage';
 import Constants from 'expo-constants';
 import Client from '../API/Client'
 import { DrawerActions } from 'react-navigation';
@@ -18,7 +19,7 @@ import { ProgressSteps, ProgressStep } from 'react-native-progress-steps';
 import StepOne from '../components/WizardComps/Step1';
 import StepTwo from '../components/WizardComps/Step2';
 import StepThree from '../components/WizardComps/Step3';
-import StepFour from '../components/WizardComps/Step4';
+import StepFive from '../components/WizardComps/Step5';
 import * as Permissions from 'expo-permissions';
 import * as ImagePicker from 'expo-image-picker';
 
@@ -31,6 +32,7 @@ export default class Movingfurniture extends React.Component {
             Date: "Select appointment date",
             Time: "Select appointment time",
             step:0,
+            reRender:false,
             images:[],
             whereText: "Amman Jordan",
             dropText: "Jandweel",
@@ -68,11 +70,16 @@ export default class Movingfurniture extends React.Component {
         this.handleTime = this.handleTime.bind(this);
         this.handleDatePicked = this.handleDatePicked.bind(this);
         this.searchData = this.searchData.bind(this)
-        this.getPermissionAsync =  this.getPermissionAsync.bind(this);
-        this._updateImage = this._updateImage.bind(this);
-        this._pickImage = this._pickImage.bind(this);
         this.floorFrom = this.floorFromF.bind(this)
-        this.floorTo= this.floorToF.bind(this)
+        this.floorTo= this.floorToF.bind(this);
+        this.reRender = this.reRender.bind(this);
+        this.handleClose = this.handleClose.bind(this);
+    }
+
+    reRender() {
+        this.setState({
+            reRender : !this.state.reRender
+        })
     }
 
     floorFromF(val) {
@@ -93,65 +100,63 @@ export default class Movingfurniture extends React.Component {
             }else return
     }
 
-    onSubmit(){
-      this.UploadDocs();
-    }
+   
     ////upload section
 
-    getPermissionAsync = async () => {
+    // getPermissionAsync = async () => {
          
-        if (Constants.platform.ios) {
-            const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-            if (status !== 'granted') {
-                alert('Sorry, we need camera roll permissions to make this work!');
-            }
-        }
-    }
+    //     if (Constants.platform.ios) {
+    //         const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+    //         if (status !== 'granted') {
+    //             alert('Sorry, we need camera roll permissions to make this work!');
+    //         }
+    //     }
+    // }
 
-    _updateImage(result){
+    // _updateImage(result){
          
-        let images = [];
-        images = this.state.images;
-        images.push(result)
-        this.setState({images:images})
-    }
+    //     let images = [];
+    //     images = this.state.images;
+    //     images.push(result)
+    //     this.setState({images:images})
+    // }
 
-    _pickImage = async () => {
+    // _pickImage = async () => {
          
-        let result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.All,
-            allowsEditing: true,
-            aspect: [4, 3],
-            quality: 1
-        });
-        if (!result.cancelled) {
-            this._updateImage(result)
-        }
-    };
+    //     let result = await ImagePicker.launchImageLibraryAsync({
+    //         mediaTypes: ImagePicker.MediaTypeOptions.All,
+    //         allowsEditing: true,
+    //         aspect: [4, 3],
+    //         quality: 1
+    //     });
+    //     if (!result.cancelled) {
+    //         this._updateImage(result)
+    //     }
+    // };
 
-    UploadDocs(){
+    // UploadDocs(){
          
-        var bodyFormData = new FormData();
-        bodyFormData.append('images',this.state.images)
+    //     var bodyFormData = new FormData();
+    //     bodyFormData.append('images',this.state.images)
        
-        axios({
-            method: 'post',
-            url: `http://api.ibshr.com/api/account/upload/move-furniture/${this.state.requestId}`,
-            data: bodyFormData,
-            headers: {
-            'Content-Type': 'multipart/form-data',
-            Authorization: `Bearer ${token}`}
-            })
-            .then(function (response) {
+    //     axios({
+    //         method: 'post',
+    //         url: `http://api.ibshr.com/api/account/upload/move-furniture/${this.state.requestId}`,
+    //         data: bodyFormData,
+    //         headers: {
+    //         'Content-Type': 'multipart/form-data',
+    //         Authorization: `Bearer ${token}`}
+    //         })
+    //         .then(function (response) {
                  
-                this.props.navigation.navigate('SelectType')
-            })
-            .catch(function (response) {
-                //handle error
+    //             this.props.navigation.navigate('SelectType')
+    //         })
+    //         .catch(function (response) {
+    //             //handle error
                  
-                console.log(response);
-            });
-    }
+    //             console.log(response);
+    //         });
+    // }
 
     ///
 
@@ -186,20 +191,20 @@ export default class Movingfurniture extends React.Component {
     }
 
     handleTime = (time)=>{
-        let stTime = JSON.stringify(time)
-        this.setState({Time:stTime, showTime: false})
+        let timeState = time.toLocaleTimeString();
+        this.setState({Time:timeState, showTime: false})
     }
 
     handleDatePicked = date => {
-        let stDate = JSON.stringify(date)
-        this.setState({Date:stDate,hideDate:false})
+        let day = date.getDate();
+        let month = date.getMonth() + 1; // Since getMonth() returns month from 0-11 not 1-12
+        let year = date.getFullYear();
+        var dateStr = day + "/" + month + "/" + year;
+        this.setState({Date:dateStr,hideDate:false})
     };
+    
 
-
-    /**
-     * 
-     * @param {object} val 
-     */
+   
     firstStep(val) {
         let time = val.Time == "Select appointment time";
         let date = val.Date == "Select appointment date"
@@ -275,16 +280,18 @@ export default class Movingfurniture extends React.Component {
     }
 
     showAlert(title, message){
-        Alert.alert(
-            `${title}`,
-            `${message}`,
-            [
-              {text: 'OK', onPress: () => console.log('OK Pressed')},
-            ],
-            {cancelable: false},
-          );
+        this.setState({showErr: true, errMeassage:message})
     }
-    
+
+    handleClose = (factor) => {
+        if(factor) {
+         this.props.navigation.navigate('SelectType')
+        }else {
+
+        }
+        this.setState({ showErr: false , errMeassage:''})
+      }
+
     submit = (self)=> {
          
         let obj =
@@ -294,19 +301,18 @@ export default class Movingfurniture extends React.Component {
             "time":"12:15AM",
             "current": {lat: this.passData.droplatitude,long:this.passData.droplongitude},
             "destination": {lat: this.passData.wherelatitude,long:this.passData.wherelatitude},
-            "unpackFurniture": self.state.unpackFurniture,
-            "wrappingClothes": self.state.wrappingClothes,
-            "cleaning": self.state.cleaning,
+            "unpackFurniture": this.state.unpackFurniture,
+            "wrappingClothes": this.state.wrappingClothes,
+            "cleaning": this.state.cleaning,
             "houseSpace":150,
             "offerValidty": 3
           }
 
           Client.post(`requests/move-furniture/create`,obj).then((res)=>{
-               
-              this.setState({requestId:res.data._id})
-              this.getPermissionAsync()
+                this.setState({requestId:res.data._id, factor:true, showErr: true, errMeassage:"Your Request has been submitted", type:"success"})
+              
           }).catch((res)=>{
-             
+            this.setState({showErr:true , errMeassage: res.response.data.error.message, })
           })
     }
     render(){
@@ -318,7 +324,9 @@ export default class Movingfurniture extends React.Component {
         <View style={{flex:1}}> 
             <Header 
             backgroundColor={"#00164F"}
-            leftComponent={{icon:'ios-arrow-back', type:'ionicon', color:"#FFF", size: 30, component: TouchableWithoutFeedback,onPress: ()=>{this.props.navigation.goBack()} }}
+            leftComponent={ <TouchableWithoutFeedback  onPress ={()=>{this.props.navigation.goBack()}}>
+                <Text style={{color:"#fff", fontSize:20}}>cancel</Text>
+            </TouchableWithoutFeedback>}
             centerComponent={<Text style={{ 
                 width:'100%',
                 marginLeft:'20%',
@@ -328,7 +336,10 @@ export default class Movingfurniture extends React.Component {
             }}>Moving-Furniture</Text>}
             innerContainerStyles={{marginLeft:10,marginRight: 10}}
         />
-            <ProgressSteps activeStep={this.state.step} onSubmit={this.onSubmit}>
+         {this.state.showErr &&
+          <ErrMessage factor={this.state.factor} handleClose={this.handleClose} message={this.state.errMeassage} type = {this.state.type}  showErr = {this.state.showErr} handleClose={this.handleClose}/>
+        }
+            <ProgressSteps activeStep={this.state.step} onSubmit={this.submit}>
                 <ProgressStep nextBtnDisabled={stepOneVald} onNext={()=>this.firstStep(this.state)} label="Date & Time">
                    <StepOne handleTime={this.handleTime} Time={this.state.Time} Date={this.state.Date} hideDate={this.state.hideDate} showTime={this.state.showTime} handleDatePicked={this.handleDatePicked}/>
                 </ProgressStep>
@@ -352,12 +363,11 @@ export default class Movingfurniture extends React.Component {
                         houseSpace={this.state.houseSpace}
                     />
                 </ProgressStep>
-                {/* <ProgressStep  onSubmit={this.onSubmit} label="Gallery">
-                   <StepFour
-                   images={this.state.images}
-                        _pickImage={ this._pickImage}
+                <ProgressStep  onSubmit={this.submit} label="Items to move">
+                   <StepFive
+                        reRender = {this.reRender}
                    />
-                </ProgressStep> */}
+                </ProgressStep>
             </ProgressSteps>
         </View>
         )

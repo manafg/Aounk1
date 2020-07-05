@@ -1,15 +1,20 @@
 import React from 'react';
 import {Registration } from '../components';
 import {StyleSheet,View,StatusBar,AsyncStorage} from 'react-native';
-import Client from '../API/Client'
+import Client from '../API/Client';
+import ErrMessage from '../API/ErrMeassage';
+
+
 
 export default class RegistrationPage extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-          loading: false
+          loading: false,
+          showErr:false,
+          errMeassage:null
         }
-        this.login = false;
+        this.handleClose = this.handleClose.bind(this);
     }
     
     
@@ -20,7 +25,7 @@ export default class RegistrationPage extends React.Component {
         this.setState({loading: true})
         var regData = {
           email:email,
-          password: "manafG1992@", 
+          password: password, 
           phoneId:data
         }
         let profile = {
@@ -28,20 +33,36 @@ export default class RegistrationPage extends React.Component {
           "lastName": lname,
         }
         Client.post('account/user/create', regData).then((res)=>{
+          debugger
             profile.userId = res.data.user._id
             Client.defaults.headers['Authorization'] = `Bearer ${res.data.token}`
-            Client.post(`account/user/passenger/profile`,profile).then((res)=>{
+            AsyncStorage.setItem('Token', res.data.token);
+            Client.post(`account/user/profile`,profile).then((res)=>{
+              debugger
             this.props.navigation.navigate('Login')
+          }).catch((res)=>{
+            debugger
+            this.setState({showErr:true , errMeassage: res.response.data.error.message})
+
           })
         }).catch((res)=>{
+          debugger
+          this.setState({showErr:true , errMeassage: res.response.data.error.message})
         })
     }
-
+    handleClose = () =>{
+      this.setState({ showErr: false , errMeassage:''})
+    }
   
     
   render() {
     return (
         <View style={styles.containerView}>
+            {this.state.showErr &&
+              <ErrMessage handleClose={this.handleClose} message={this.state.errMeassage}  showErr = {this.state.showErr}/>
+              
+            }
+          
             <Registration complexity={'any'} onPressRegister={(fname, lname, mobile, email, password)=>this.clickRegister(fname, lname, mobile, email, password)}  onPress={()=>{this.clickRegister()}} onPressBack={()=>{this.props.navigation.goBack()}} loading={this.state.loading}></Registration>
         </View>
     );

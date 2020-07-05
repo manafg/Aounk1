@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, Dimensions, FlatList, StyleSheet, Image } from 'react-native';
 import { Icon } from 'react-native-elements'
 import { colors } from '../common/theme';
+import EmptyComp from '../components/EmptyComp'
 const devWidth=Dimensions.get("window").width;
 
 export default class Notifications extends React.Component {
@@ -10,21 +11,7 @@ export default class Notifications extends React.Component {
         super(props);
         this.state={
             data: [
-                {Status:'Your Booking with GT908753 is confirm,please wait for ride',time:'2 mins ago'},
-                {Status:'Your Booking with GT908753 is cancelled successfully',time:'10 mins ago'},
-                {Status:'Your payment Successfully submitted',time:'2 days ago'},
-                {Status:'Hey Sudipta!Your ride is completed',time:'10 Oct,2018'},
-                {Status:'Your Booking with GT908753 is confirm,please wait for ride',time:'5 Oct,2018'},
-                {Status:'Your Booking with GT908753 is confirm,please wait for ride',time:'2 mins ago'},
-                {Status:'Your Booking with GT908753 is cancelled successfully',time:'10 mins ago'},
-                {Status:'Your payment Successfully submitted',time:'2 days ago'},
-                {Status:'Hey Sudipta!Your ride is completed',time:'10 Oct,2018'},
-                {Status:'Your Booking with GT908753 is confirm,please wait for ride',time:'5 Oct,2018'},
-                {Status:'Your Booking with GT908753 is confirm,please wait for ride',time:'2 mins ago'},
-                {Status:'Your Booking with GT908753 is cancelled successfully',time:'10 mins ago'},
-                {Status:'Your payment Successfully submitted',time:'2 days ago'},
-                {Status:'Hey Sudipta!Your ride is completed',time:'10 Oct,2018'},
-                {Status:'Your Booking with GT908753 is confirm,please wait for ride',time:'5 Oct,2018'},
+               
             ],
         } 
       }
@@ -41,7 +28,7 @@ export default class Notifications extends React.Component {
                       <View style={styles.imageHolder}>
                       <Image
                             style={styles.cabLogoStyle}
-                            source={require('../../assets/images/cablogo.png')}
+                            source={require('../../assets/images/logo.png')}
                           />
                       </View>
                       <View style={styles.statusView}>
@@ -67,11 +54,14 @@ export default class Notifications extends React.Component {
     render(){    
     return(
         <View style={{flex:1}}>
+        {this.state.data.length ? 
             <FlatList
                 keyExtractor={(item, index) => index.toString()}
                 data={this.state.data}
                 renderItem={this.newData}
             />
+            :
+            <EmptyComp message ="You don't have any notifications"/> }
         </View>
     ); 
 }

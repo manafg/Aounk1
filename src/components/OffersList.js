@@ -23,7 +23,6 @@ export default class OffersList extends React.Component {
         return (
             <View >
             <TouchableOpacity onPress={()=>{
-                debugger
                 props.props.navigation.navigate('SingleOffer',{
                             requestId:item._id
                         })

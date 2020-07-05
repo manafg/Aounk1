@@ -47,7 +47,7 @@ export default class MapComponent extends Component {
                   <MapViewDirections
                             origin={{latitude: this.props.truckReqPayLoad.current.lat, longitude: this.props.truckReqPayLoad.current.lng}}
                             destination={{latitude: this.props.truckReqPayLoad.destination.lat, longitude: this.props.truckReqPayLoad.destination.lng}}
-                            apikey={'AIzaSyDZ7HSZZafEkBmuwD2CdHrLJNn3kEm39Fo'}
+                            apikey={'AIzaSyDqnzeDBnNoa_5yDnZj5doqjnoim2YkLKE'}
                 />
                 }
             </MapView>

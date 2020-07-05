@@ -8,6 +8,7 @@ import {
     TouchableOpacity,
     Text
 } from 'react-native';
+import { Icon } from 'react-native-elements'
 import SmoothPinCodeInput from 'react-native-smooth-pincode-input';
 import Client from '../API/Client'
 
@@ -25,10 +26,10 @@ export default class PinCodeScreen extends Component {
     }
     verfiyPin() {
         const { navigation } = this.props;
-        let phone = navigation.getParam('phoneId', '785507893');
+        let phone = navigation.getParam('phoneId', '785311634');
         Client.patch('account/verify/phone',{ 
             "phone":"+962"+phone,
-            "code":parseInt(this.state.pin)
+            "code":this.state.pin
         }).then((res)=>{
         this.props.navigation.navigate('Reg',{
             itemId: 1,
@@ -40,11 +41,13 @@ export default class PinCodeScreen extends Component {
     }
 
     resendCode () {
-        Client.patch('/verify/resend',{ 
-            "phone":"+962785311634",
+        const { navigation } = this.props;
+        let phone = navigation.getParam('phoneId', '785311634');
+        Client.get('/verify/resend',{ 
+            "phone":"+962"+phone,
             "code":parseInt(this.state.pin)
         }).then((res)=>{
-        
+        }).catch((res)=>{
         })
     }
     render() {
@@ -53,6 +56,9 @@ export default class PinCodeScreen extends Component {
             <ImageBackground style={styles.imgBackground}
                 resizeMode='cover'
                 source={require('../../assets/images/background.png')}>
+                <TouchableOpacity onPress={() => { this.props.navigation.goBack() }} style={{ zIndex: 999, position: 'absolute', top: 40, left: 20 }}>
+					<Icon name='ios-arrow-back' type="ionicon"color='#000'  />
+                </TouchableOpacity>
                 <View style={styles.Header}>
 					<Image style={styles.image} source={require('../../assets/images/phone_code.png')}></Image>
 					<Text style={styles.subText}>Enter The Received Code</Text>	
@@ -66,7 +72,7 @@ export default class PinCodeScreen extends Component {
 				</View>
                 <View style={styles.containerView}>
                     <SmoothPinCodeInput
-                        codeLength={5}
+                        codeLength={6}
                         cellStyle={{
                             borderBottomWidth: 2,
                             borderColor: 'gray',
@@ -76,13 +82,8 @@ export default class PinCodeScreen extends Component {
                         }}
                         value={pin}
                         onTextChange={pin => this.setState({ pin })}
+                        onFulfill={this.verfiyPin}
                     />
-                    <TouchableOpacity
-                        style={styles.button}
-                        onPress={this.verfiyPin}
-                    >
-                        <Text style={{ color: 'white' }}> Continue </Text>
-                    </TouchableOpacity>
                 </View>
             </ImageBackground>
         )
