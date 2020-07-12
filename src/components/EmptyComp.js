@@ -3,9 +3,8 @@ import {
     StyleSheet,
     View,
     Text,
-    StatusBar,
     Image,
-    TouchableWithoutFeedback
+    TouchableOpacity,
 } from 'react-native';
 
 const EmptyComp = (props) => {
@@ -13,9 +12,17 @@ const EmptyComp = (props) => {
     <View style={styles.notifyStyle}>
         <Image
             style={styles.imageStyle}
-            source={require('../../assets/images/Notification.png')}
+            source={ props.image ? require("../../assets/images/credit-card.png") :  require('../../assets/images/Notification.png') }
         />
         <Text style={{ fontSize: 20, marginTop: 20, fontWeight: 'bold' }}>{props.message}</Text>
+        {props.image && 
+        <TouchableOpacity
+                style={styles.button}
+                onPress={() => { props.navigate() }}
+            >
+                <Text style={{ color: 'white' }}> New Card </Text>
+     </TouchableOpacity>
+    }
     </View>
     )
 }
@@ -23,6 +30,17 @@ const EmptyComp = (props) => {
 export default EmptyComp;
 
 const styles = StyleSheet.create({
+    button: {
+        marginTop:40,
+        borderRadius: 10,
+        width: '80%',
+        padding: 10,
+        height: 40,
+        alignItems: 'center',
+        marginLeft: 40,
+        marginRight: 40,
+        backgroundColor: '#0D1C60',
+    },
     container:{
         zIndex:999,
         flex:1

@@ -33,20 +33,16 @@ export default class RegistrationPage extends React.Component {
           "lastName": lname,
         }
         Client.post('account/user/create', regData).then((res)=>{
-          debugger
             profile.userId = res.data.user._id
             Client.defaults.headers['Authorization'] = `Bearer ${res.data.token}`
             AsyncStorage.setItem('Token', res.data.token);
             Client.post(`account/user/profile`,profile).then((res)=>{
-              debugger
             this.props.navigation.navigate('Login')
           }).catch((res)=>{
-            debugger
             this.setState({showErr:true , errMeassage: res.response.data.error.message})
 
           })
         }).catch((res)=>{
-          debugger
           this.setState({showErr:true , errMeassage: res.response.data.error.message})
         })
     }

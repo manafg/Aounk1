@@ -19,12 +19,26 @@ import {
     VoucherScreen,
     SettingScreen,
     OffersPage,
-    AboutPage
+    AboutPage,
+    CardList,
+    NewCard
 } from '../screens';
 import SideMenu from '../components/SideMenu';
 
 //app stack for user end
     export const AppStack = {
+        NewCard:{
+            screen:NewCard,
+            navigationOptions:{
+                header:null
+            }
+        },
+        CardList:{
+            screen:CardList,
+            navigationOptions:{
+                header:null
+            }
+        },
         SearchScreenMove:{
             screen:SearchScreenMove,
             navigationOptions:{

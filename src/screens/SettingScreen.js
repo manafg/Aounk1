@@ -22,12 +22,16 @@ export default class SettingScreen extends React.Component {
     super(props);
     this.state = {
     }
+    this.navigation = this.navigation.bind(this)
+  }
+
+  navigation(){
+    this.props.navigation.navigate('CardList')
   }
 
   render() {
     return (
       <View style={styles.imgBackground}>
-
         <Header
           backgroundColor={"#00164F"}
           leftComponent={{ icon: 'md-menu', type: 'ionicon', color: colors.WHITE, size: 30, component: TouchableWithoutFeedback, onPress: () => { this.props.navigation.toggleDrawer(); } }}
@@ -36,8 +40,7 @@ export default class SettingScreen extends React.Component {
           innerContainerStyles={{ marginLeft: 10, marginRight: 10 }}
         />
         <View containerStyle={{ marginBottom: 20 }}>
-          <Text style={{paddingLeft:20, paddingTop:20, paddingBottom:20, fontSize:16}}>Payment Methodes</Text>
-
+          <Text style={{paddingLeft:20, paddingTop:20, paddingBottom:20, fontSize:16}}>Payment Methods</Text>
           <ListItem
             title={"Cash"}
             leftIcon={{ name: 'cash', type: 'material-community', color:"#70B32F", size:40 }}
@@ -45,7 +48,8 @@ export default class SettingScreen extends React.Component {
             chevron
           />
           <ListItem
-            title={"Add Payment Methode"}
+            onPress={this.navigation}
+            title={"Payment Methode"}
             titleStyle={{ color: '#70B32F',  }}
             bottomDivider
             chevron

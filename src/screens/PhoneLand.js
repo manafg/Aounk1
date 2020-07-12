@@ -50,7 +50,6 @@ export default class PhoneLand extends Component {
 			"userType": "PASSENGER"
 		})
 			.then((res) => {
-				debugger
 				try {
 					AsyncStorage.setItem('MobileNumber', `${this.state.phone}`);
 				} catch (error) {

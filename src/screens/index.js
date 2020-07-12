@@ -17,7 +17,9 @@ import SettingScreen from './SettingScreen';
 import offersDetail from './OffersDetail';
 import SingleOffer from './SingleOffer';
 import SearchScreenMove from './SearchScreenMove';
-import MovefurnitreLandingPage from './MovefurnitreLandingPage'
+import MovefurnitreLandingPage from './MovefurnitreLandingPage';
+import CardList from '../screens/CardList';
+import NewCard from '../screens/NewCard'
 
 export {
     SearchScreenMove,
@@ -39,5 +41,7 @@ export {
     NotificationPage,
     SearchScreen,
     EditProfilePage,
-    AboutPage
+    AboutPage,
+    CardList,
+    NewCard
 };

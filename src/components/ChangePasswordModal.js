@@ -70,7 +70,7 @@ export default class ChangePasswordModal extends Component {
                                 <Text style={styles.forgotPassText}>Change Password ?</Text>
                             </View>
                             <View style={styles.crossIconContainer}>
-                                <Icon name='close' type="fontawesome"color='#fff' onPress={requestmodalclose} />
+                                <Icon name='close' type="fontawesome" color='#fff' onPress={requestmodalclose} />
                             </View>
                         </View>
                     </View>

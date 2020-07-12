@@ -10,7 +10,8 @@ import ForgotPassModal from './ForgotPassModal'
 import ChangePasswordModal from './ChangePasswordModal'
 import EditUser from './EditUser';
 import OfferDetailMap from './OfferDetailMap';
-import OffersList from '../components/OffersList'
+import OffersList from '../components/OffersList';
+import PaymentCard from '../components/paymentComp/PaymentCard'
 
 export {
     Background,
@@ -25,5 +26,6 @@ export {
     MapComponent,
     ForgotPassModal,
     EditUser,
-    ChangePasswordModal
+    ChangePasswordModal,
+    PaymentCard
 };

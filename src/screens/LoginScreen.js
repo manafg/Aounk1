@@ -63,10 +63,10 @@ export default class LoginScreen extends Component {
       let logData = {
         // "email":"Manafhgh22@gmail.com",
         // "password":"manafG1992@"
-        // "email":'passenger@mailinator.com',
-        // "password":'hash-this'
-        "email":email,
-        "password": password
+        "email":'passenger@mailinator.com',
+        "password":'hash-this'
+        // "email":email,
+        // "password": password
       }
       Client.post('account/users/login', logData).then((res)=>{
         let role = res.data.user.roles[0] == "PASSENGER"
