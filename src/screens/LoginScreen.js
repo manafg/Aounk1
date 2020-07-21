@@ -10,12 +10,14 @@ import {
 import { LoginComponent, Background, ForgotPassModal} from '../components';
 import Client from '../API/Client';
 import ErrMessage from '../API/ErrMeassage';
-import {AsyncStorage} from 'react-native';
+import {AsyncStorage, Linking} from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 
 
 
+let forgotPassUrl = 'https://api.ibshr.com/reset/password?fbclid=IwAR2Q6R1fJIZQLRQZZ6jIx-GgQbreaZDnBv88WLwwh-bSkd8tsS4SdVWXby8'
 export default class LoginScreen extends Component {
     constructor(props){
       super(props);
@@ -45,7 +47,13 @@ export default class LoginScreen extends Component {
 
     //forgot password press
     forgotPassPress() {
-        this.setState({showForgotModal:true})
+      Linking.canOpenURL(forgotPassUrl).then(supported => {
+        if (supported) {
+          Linking.openURL(forgotPassUrl);
+        } else {
+          console.log("Don't know how to open URI: " + forgotPassUrl);
+        }
+      });
     }
     
     onPressForgotPass(email) {
@@ -63,10 +71,10 @@ export default class LoginScreen extends Component {
       let logData = {
         // "email":"Manafhgh22@gmail.com",
         // "password":"manafG1992@"
-        "email":'passenger@mailinator.com',
-        "password":'hash-this'
-        // "email":email,
-        // "password": password
+        // "email":'passenger@mailinator.com',
+        // "password":'hash-this'
+        "email":email,
+        "password": password
       }
       Client.post('account/users/login', logData).then((res)=>{
         let role = res.data.user.roles[0] == "PASSENGER"
@@ -107,12 +115,14 @@ export default class LoginScreen extends Component {
               />
                
             </View>
+            <View style={{flex:1, marginTop:90}}>
             <TouchableOpacity
                 onPress={()=>{this.onPressRegister()}}
                 style={styles.button}
             >
-                <Text style={{ color: 'white' , fontWeight:'bold', fontSize:16,}}> Register </Text>
+                <Text style={{ color: 'white' , fontWeight:'bold', fontSize:16, height:100}}> Register </Text>
             </TouchableOpacity>
+            </View>
             <ForgotPassModal
                 modalvisable={this.state.showForgotModal}
                 requestmodalclose={()=>{this.closeModal()}}

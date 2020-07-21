@@ -3,6 +3,8 @@ import { View, ImageBackground, Text, Dimensions, ScrollView, KeyboardAvoidingVi
 import Background from './Background';
 import { Icon, Button, Header, Input } from 'react-native-elements'
 import { colors } from '../common/theme';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+
 
 var { height } = Dimensions.get('window');
 
@@ -124,10 +126,11 @@ export default class Registration extends React.Component {
     render() {
         const { onPressBack, loading } = this.props
         return (
-            <ImageBackground style={[styles.imgBackground, { paddingTop: 240 }]}
+            <ImageBackground style={[styles.imgBackground, {  }]}
                 resizeMode='cover'
                 source={require('../../assets/images/reg_page.png')}>
                 <Header 
+                    style={{marginBottom: 240, paddingBottom:240}}
                     backgroundColor={colors.TRANSPARENT}
                     leftComponent={{icon:'ios-arrow-back', type:'ionicon', color:colors.GREY.default, size: 35, component: TouchableWithoutFeedback,onPress: onPressBack }}
                     outerContainerStyles={styles.headerContainerStyle}
@@ -136,8 +139,8 @@ export default class Registration extends React.Component {
                     {/* <View style={styles.logo}>
                         <Image source={require('../../assets/images/logo.png')} />
                     </View> */}
-                    <KeyboardAvoidingView behavior={Platform.OS == 'ios' ? "padding" : "height"} style={styles.form}>
                         <SafeAreaView style={styles.containerStyle}>
+                    <KeyboardAwareScrollView  style={styles.form}>
                             
                             <View style={styles.textInputContainerStyle}>
                                 <Input
@@ -196,7 +199,7 @@ export default class Registration extends React.Component {
                                     errorMessage={this.state.emailValid ? null : 'Please enter a valid email address'}
                                     secureTextEntry={false}
                                     blurOnSubmit={true}
-                                    onSubmitEditing={() => { this.validateEmail(); this.mobileInput.focus() }}
+                                    onSubmitEditing={() => { this.validateEmail(); this.passwordInput.focus() }}
                                     errorStyle={styles.errorMessageStyle}
                                     inputContainerStyle={styles.inputContainerStyle}
                                     containerStyle={styles.textInputStyle}
@@ -251,8 +254,9 @@ export default class Registration extends React.Component {
                             </TouchableOpacity>
                             {/* </View> */}
                             <View style={styles.gapView} />
+                    </KeyboardAwareScrollView>
+                        
                         </SafeAreaView>
-                    </KeyboardAvoidingView>
             </ImageBackground>
         );
     }
@@ -326,6 +330,7 @@ const styles = {
       flex:1
     },
     form: {
+        marginTop: 240,
         flex: 1,
     },
     logo: {

@@ -10,6 +10,7 @@ import {
 import { Input, Button } from 'react-native-elements';
 import {  colors } from '../common/theme';
 
+
 var { width } = Dimensions.get('window');
 
 
@@ -79,6 +80,7 @@ export default class LoginComponent extends Component {
 
         return (
             <View>
+            
                 <View style={{marginBottom:50}} >
                     <Input
                         ref={input => (this.emailInput = input)}
@@ -149,7 +151,6 @@ export default class LoginComponent extends Component {
                         containerStyle={styles.loginButtonContainer}
                     />
                 </View>
-                
                 
             </View>
         );

@@ -7,6 +7,8 @@ import {
     TouchableWithoutFeedback,
     ImageBackground,
     TouchableOpacity,
+    KeyboardAvoidingView,
+    ScrollView
 
 } from 'react-native';
 import { Dimensions } from "react-native";
@@ -80,6 +82,8 @@ export default class NewCard extends React.Component {
                 {this.state.showErr &&
                     <ErrMessage message={this.state.errMeassage} type={this.state.type} handleClose={this.handleClose} showErr={this.state.showErr} />
                 }
+                <ScrollView style={{height:screenHeight+1000}} > 
+
                 <View style={{ marginTop: 100 }}>
                     <CreditCardInput onChange={this._onChange} />
                 <View style={{width:'80%', marginLeft:'10%'}}>
@@ -93,6 +97,8 @@ export default class NewCard extends React.Component {
                 }
                 </View>
                 </View>
+                </ScrollView>
+
 
                 {/* <CreditCardInput
                     autoFocus
@@ -113,7 +119,7 @@ export default class NewCard extends React.Component {
 const styles = StyleSheet.create({
     button: {
         
-        marginTop:40,
+        marginTop:0,
         borderRadius: 10,
         width: '80%',
         padding: 10,

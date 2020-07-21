@@ -40,6 +40,7 @@ export default class CardList extends React.Component {
 
   getCards() {
     Client.get(`account/payments`).then((res) => {
+      debugger
       if (typeof res.data == 'string') {
 
       } else {
@@ -51,7 +52,8 @@ export default class CardList extends React.Component {
   }
 
   activate(id) {
-    Client.get(`account/payments/${id}/activated`).then((res) => {
+    Client.patch(`account/payments/${id}/activated`).then((res) => {
+      debugger
       this.getCards();
     }).catch((res) => {
       this.setState({ showErr: true, errMeassage: res.response.data.error.message })
@@ -71,7 +73,7 @@ export default class CardList extends React.Component {
       title={item.lastCharacters}
       subtitle={item.type}
       id={item._id}
-      active={item.active}
+      active={item.activated}
       activate={this.activate}
     />
   )
